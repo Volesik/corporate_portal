@@ -1,0 +1,9 @@
+services:
+  corporatePortal.Database:
+    image: postgres:16.4-alpine
+    environment:
+      POSTGRES_USER: portal
+      POSTGRES_PASSWORD: portal
+      POSTGRES_DATABASE: portal
+    ports:
+      - '2345:5432'
