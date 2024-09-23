@@ -1,0 +1,189 @@
+body {
+  font-size: 15px;
+  font-family: 'Bitter', serif;
+  line-height: 22px;
+}
+
+.main {
+  margin-top: 40px;
+}
+
+header,
+.footer {
+  background: rgb(27, 26, 31);
+  padding: 20px 0;
+  color: #e6e7e8;
+  border-bottom: 1px solid #2d2b33;
+}
+
+.logo {
+  width: 200px;
+}
+
+.header-search-field {
+  background: #2d2b33;
+  padding: 11px 16px;
+  width: 400px;
+  border-radius: 5px;
+  border: none;
+}
+
+.menu {
+  background: rgb(27, 26, 31);
+  padding: 14px 11px;
+}
+
+.menu ul {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu li {
+  margin-right: 20px;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #e6e7e8;
+  font-weight: bold;
+  padding-bottom: 14px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.menu a:hover {
+  text-decoration: none;
+  color: #d22747;
+  border-color: #d22747;
+  border-bottom: 3px solid;
+  font-weight: bold;
+}
+
+.header-search-field:focus {
+  background: white;
+}
+
+.mb-80 {
+  margin-bottom: 80px;
+}
+
+footer {
+  background-color: rgb(27, 26, 31);
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  position: relative;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  display: block;
+  top: -50px;
+  width: 100%;
+  height: 100px;
+  background: url('../images/footerBg.png') no-repeat 100% 100% / cover;
+  background-position: center;
+  z-index: -1;
+}
+
+.employee-card {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.photo img {
+  max-width: 100px; /* Adjust photo size as needed */
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.info {
+  flex: 1; /* Take up remaining space */
+}
+
+.info h2 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.info p {
+  font-size: 0.7rem;
+  margin: 5px 0;
+}
+
+.page-title {
+  font-size: 18px;
+  line-height: 25px;
+  position: relative;
+}
+
+.birthday-column {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.birthday-column__photo {
+  width: 50px;
+  border-radius: 50%;
+}
+
+.birthday-column__name {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.pagination__list {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination__list li {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  margin-left: 10px;
+}
+
+.pagination__list li a {
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+}
+
+.pagination__list li a:hover {
+  color: #d22747;
+}
+
+.employee-card__icon {
+  margin-right: 10px;
+  color: #d22747;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+}
+
+.link:hover {
+  color: #d22747;
+}
