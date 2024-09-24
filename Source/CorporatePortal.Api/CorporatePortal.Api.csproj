@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CorporatePortal.BL\CorporatePortal.BL.csproj" />
     <ProjectReference Include="..\CorporatePortal.Web\CorporatePortal.Web.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>

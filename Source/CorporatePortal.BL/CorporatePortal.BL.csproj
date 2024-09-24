@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\CorporatePortal.DL.EntityFramework\CorporatePortal.DL.EntityFramework.csproj" />
+      <ProjectReference Include="..\CorporatePortal.DL\CorporatePortal.DL.csproj" />
+    </ItemGroup>
+
 </Project>
