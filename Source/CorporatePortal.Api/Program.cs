@@ -43,11 +43,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-var fileProvider = new PhysicalFileProvider(
-	Path.Combine(app.Environment.WebRootPath));
-app.MapFallbackToFile("index.html", new StaticFileOptions {
-	FileProvider = fileProvider,
-	RequestPath = ""
-});
+app.MapFallbackToFile("/index.html");
 
 app.Run();
