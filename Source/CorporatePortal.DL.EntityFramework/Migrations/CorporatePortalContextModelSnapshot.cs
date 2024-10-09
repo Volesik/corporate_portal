@@ -50,6 +50,9 @@ namespace CorporatePortal.DL.EntityFramework.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
+                    b.Property<DateTimeOffset?>("EmploymentDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("text");
@@ -61,6 +64,12 @@ namespace CorporatePortal.DL.EntityFramework.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("PersonalMobilePhone")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Position")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Room")
                         .HasColumnType("text");
 
                     b.Property<string>("SubDepartment")

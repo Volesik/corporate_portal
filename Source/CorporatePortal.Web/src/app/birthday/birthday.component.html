@@ -1,0 +1,17 @@
+<h5 class="page-title">День народження</h5>
+<div *ngFor="let birthday of birthdays" class="birthday-column">
+  <div class="birthday-column__section row align-items-center">
+    <div class="col-3">
+      <img
+        class="birthday-column__photo"
+        src="assets/images/no-image-placeholder.svg"
+        alt="Employee Photo"
+      />
+    </div>
+    <div class="col-9">
+            <span class="birthday-column__name"
+            ><a href="user/{{ birthday.id }}" class="link">{{ birthday.fullName }}</a></span
+            >
+    </div>
+  </div>
+</div>

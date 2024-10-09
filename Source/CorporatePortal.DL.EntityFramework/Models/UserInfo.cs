@@ -27,4 +27,10 @@ public class UserInfo : BaseEntity
     public string? City { get; set; }
     
     public required Guid UniqueId { get; set; }
+    
+    public string? Position { get; set; }
+    
+    public string? Room { get; set; }
+    
+    public DateTimeOffset? EmploymentDate { get; set; }
 }

@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-3">
+      <div class="detail-page__cards">
+        <img
+          class="detail-page__photo"
+          [src]="userInfo?.imageUrl"
+          alt="Employee Photo"
+        />
+      </div>
+      <div class="detail-page__card" *ngIf="userInfo?.room">
+        <p>Кабінет: <br> {{ userInfo?.room }}</p>
+      </div>
+      <div class="detail-page__card" *ngIf="userInfo?.employmentDate">
+        <p>Років в Bayadera: <br> {{ getYearsInCompany(userInfo?.employmentDate) }}</p>
+      </div>
+    </div>
+    <div class="col-9">
+      <div class="detail-page__info">
+        <h1>{{ userInfo?.fullName }}</h1>
+        <p *ngIf="userInfo?.email"><b>Email:</b> {{ userInfo?.email }}</p>
+        <p *ngIf="userInfo?.phoneNumber"><b>Робочий телефон:</b> {{ userInfo?.phoneNumber }}</p>
+        <p *ngIf="userInfo?.mobilePhone"><b>Мобільний телефон:</b> {{ userInfo?.mobilePhone }}</p>
+        <p *ngIf="userInfo?.department"><b>Департамент:</b> {{ userInfo?.department }}</p>
+        <p *ngIf="userInfo?.subDepartment"><b>Відділ:</b> {{ userInfo?.subDepartment }} </p>
+        <p *ngIf="userInfo?.position"><b>Посада:</b> {{ userInfo?.position }}</p>
+        <p *ngIf="userInfo?.chiefFullName"><b>Керівник:</b> {{ userInfo?.chiefFullName }} </p>
+        <p *ngIf="userInfo?.city"><b>Місто:</b> {{ userInfo?.city }}</p>
+      </div>
+    </div>
+</div>

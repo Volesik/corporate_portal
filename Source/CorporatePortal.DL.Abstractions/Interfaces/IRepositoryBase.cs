@@ -10,6 +10,14 @@ public interface IRepositoryBase<out TDbContext>
 
 {
     TDbContext Context { get; }
+
+    Task<long> AddAsync<TEntity>(TEntity entity, CancellationToken cancellationToken)
+        where TEntity : BaseEntity;
+    
+    Task<bool> AnyAsync<TEntity>(
+        Specification<TEntity> specification,
+        CancellationToken cancellationToken)
+        where TEntity : BaseEntity;
     
     Task<TEntity?> FirstOrDefaultAsync<TEntity>(
         Specification<TEntity> specification,
@@ -22,6 +30,19 @@ public interface IRepositoryBase<out TDbContext>
         CancellationToken cancellationToken,
         int skip = default,
         int take = default)
+        where TEntity : BaseEntity;
+    
+    Task UpdateAsync<TEntity>(
+        Specification<TEntity> specification,
+        Action<TEntity> updateAction,
+        CancellationToken cancellationToken)
+        where TEntity : BaseEntity;
+
+    Task<int> CountAsync<TEntity>(
+        Specification<TEntity> specification,
+        CancellationToken cancellationToken,
+        bool asSplitQuery = false,
+        bool useDistinct = false)
         where TEntity : BaseEntity;
 
 }

@@ -1,0 +1,28 @@
+.user-list__search-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-pagination__list li a {
+  text-decoration: none;
+  padding: 8px 12px; /* Space around the text */
+  transition: color 0.3s; /* Smooth transition for text color */
+}
+
+.user-pagination__list li:hover {
+  background-color: #fae6e4;
+}
+
+.user-pagination__list li.active {
+  background-color: #d22747; /* Background color for active page */
+}
+
+.user-pagination__list li.active a {
+  color: white; /* Text color for active page */
+}
+
+.user-pagination__list li.ellipsis {
+  cursor: default; /* Change cursor to default to indicate it's not clickable */
+  color: #666; /* Gray color for ellipsis */
+  pointer-events: none; /* Prevent hover effects */
+}

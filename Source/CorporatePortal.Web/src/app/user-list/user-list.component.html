@@ -1,0 +1,55 @@
+
+        <div class="row">
+          <div class="user-list__search-info">
+            <h5 class="page-title">Результати пошуку</h5>
+            <h5 class="page-title">Всього: {{ totalUsers }}</h5>
+          </div>
+
+          <div *ngFor="let userInfo of userInfos" class="col-6">
+            <div class="employee-card">
+              <div class="photo">
+                <img
+                  [src]="userInfo.imageUrl"
+                  alt="Employee Photo"
+                />
+              </div>
+              <div class="info">
+                <h2 class="employee-card__name">
+                  <a href="/user/{{ userInfo.id }}" class="link">{{ userInfo.fullName }}</a>
+                </h2>
+                <p *ngIf="userInfo.position" class="employee-card__text-info">
+                  <i class="employee-card__icon bi bi-person-workspace"></i
+                  >{{ userInfo.position.length > 20 ? (userInfo.position.substring(0, 40) + '...') : userInfo.position }}
+                </p>
+
+                <p *ngIf="userInfo.department" class="employee-card__text-info">
+                  <i class="employee-card__icon bi bi-bag-check-fill"></i
+                  >{{ userInfo.department }}
+                </p>
+                <p *ngIf="userInfo.mobilePhone" class="employee-card__text-info">
+                  <i class="employee-card__icon bi bi-telephone-fill"></i
+                  >{{ userInfo.mobilePhone }}
+                </p>
+                <p *ngIf="userInfo.email" class="employee-card__text-info">
+                  <i class="employee-card__icon bi bi-envelope"></i
+                  >{{ userInfo.email }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container" *ngIf="totalPages > 1">
+          <div class="row">
+            <div class="user-pagination">
+              <ul class="user-pagination__list">
+                <ng-container *ngFor="let page of pageNumbers">
+                  <li *ngIf="page === -1" class="ellipsis">...</li>
+                  <li *ngIf="page !== -1" [class.active]="page === currentPage">
+                    <a (click)="changePage(page)">{{ page }}</a>
+                  </li>
+                </ng-container>
+              </ul>
+            </div>
+          </div>
+        </div>

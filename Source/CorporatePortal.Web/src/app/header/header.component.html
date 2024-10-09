@@ -1,0 +1,41 @@
+<header>
+  <div class="container">
+    <div class="row justify-content-between">
+      <div class="col col-lg-2">
+        <a href="/users"><img class="logo" src="assets/images/bayadera.svg" alt="bayadera" /></a>
+      </div>
+      <div class="col-md-auto">
+        <div class="search-container">
+          <input
+            class="header-search-field"
+            type="text"
+            placeholder="Шукати працівників"
+            (input)="onSearch($event)"
+            (focus)="showResults = true"
+            (blur)="hideResults()"
+            (keydown.enter)="goToUsers(searchText)"
+          />
+
+          <div class="search-results" *ngIf="showResults">
+            <div *ngIf="filteredResults.length; else noResults">
+              <div *ngFor="let user of filteredResults" class="result-item" (click)="goToUser(user.id)">
+                {{ user.fullName }}
+              </div>
+            </div>
+            <ng-template #noResults>
+              <div class="no-results">Нічого не знайдено</div>
+            </ng-template>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</header>
+<nav class="menu">
+  <div class="container">
+    <ul>
+      <li><a href="/users">ПРАЦІВНИКИ КОМПАНІЇ</a></li>
+    </ul>
+  </div>
+</nav>
