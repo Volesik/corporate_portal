@@ -42,3 +42,4 @@ testem.log
 Thumbs.db
 
 #ignore employee images
+/src/assets/images/employees/*
