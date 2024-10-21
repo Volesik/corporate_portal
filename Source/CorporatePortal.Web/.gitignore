@@ -40,3 +40,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+#ignore employee images
+/src/assets/images/employees/*
