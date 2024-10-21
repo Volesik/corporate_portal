@@ -43,3 +43,4 @@ Thumbs.db
 
 #ignore employee images
 /src/assets/images/employees/*
+!/src/assets/images/employees/.gitkeep
