@@ -48,4 +48,10 @@ public class ImportUserDto
     [JsonPropertyName("DateOfEmployment")]
     [JsonConverter(typeof(CustomDateConverter))]
     public DateTime? EmploymentDate { get; set; }
+    
+    [JsonPropertyName("inphone")]
+    public string? InternalPhone { get; set; }
+    
+    [JsonPropertyName("Сотрудник")]
+    public string? AlternativeName { get; set; }
 }

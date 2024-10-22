@@ -62,6 +62,8 @@ public class UserInfoReadWorker : IWorker
                 EmploymentDate = importUser.EmploymentDate.HasValue
                     ? new DateTimeOffset(importUser.EmploymentDate.Value.Date, TimeSpan.Zero)
                     : null,
+                InternalPhone = importUser.InternalPhone,
+                AlternativeName = importUser.AlternativeName
             };
         }
     }

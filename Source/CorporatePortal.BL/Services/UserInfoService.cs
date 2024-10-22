@@ -70,6 +70,8 @@ public class UserInfoService : IUserInfoService
                     dbUser.ChiefFullName = userInfo.ChiefFullName;
                     dbUser.Room = userInfo.Room;
                     dbUser.EmploymentDate = userInfo.EmploymentDate;
+                    dbUser.AlternativeName = userInfo.AlternativeName;
+                    dbUser.InternalPhone = userInfo.InternalPhone;
                 },
                 token);
             

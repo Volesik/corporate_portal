@@ -33,4 +33,8 @@ public class UserInfo : BaseEntity
     public string? Room { get; set; }
     
     public DateTimeOffset? EmploymentDate { get; set; }
+    
+    public string? AlternativeName { get; set; }
+    
+    public string? InternalPhone { get; set; }
 }
