@@ -1,0 +1,25 @@
+<div class="wrapper">
+  <div class="search-container">
+    <h1>Пошук співробітника:</h1>
+    <input
+      class="search-input"
+      type="text"
+      placeholder="Шукати працівників"
+      (input)="onSearch($event)"
+      (focus)="showResults = true"
+      (blur)="hideResults()"
+      (keydown.enter)="goToUsers(searchText)"
+    />
+
+    <div class="search-results" *ngIf="showResults">
+      <div *ngIf="filteredResults.length; else noResults">
+        <div *ngFor="let user of filteredResults" class="result-item" (click)="goToUser(user.id)">
+          {{ user.fullName }}
+        </div>
+      </div>
+      <ng-template #noResults>
+        <div class="no-results">Нічого не знайдено</div>
+      </ng-template>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,4 @@
+using Bgc.Web.Common.Extensions;
 using CorporatePortal.BL.Interfaces;
 using CorporatePortal.BL.Services;
 using Hangfire;
@@ -37,7 +38,10 @@ builder.Services.AddDbContext<CorporatePortalContext>(options =>
 
 builder.Services.AddScoped(typeof(IDatabaseContextRepository<>), typeof(DatabaseContextRepository<>));
 builder.Services.AddScoped<IDatabaseContextRepository, DatabaseContextRepository>();
+builder.Services.AddWebCommonServices(builder.Configuration);
 builder.Services.AddTransient<IUserInfoService, UserInfoService>();
+builder.Services.AddTransient<IDownloader, Downloader>();
+builder.Services.AddTransient<IUserPhotoService, UserPhotoService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -54,8 +58,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

@@ -10,13 +10,16 @@ public class UserInfoController : ControllerBase
 {
     private readonly ILogger<UserInfoController> _logger;
     private readonly IUserInfoService _userInfoService;
+    private readonly IUserPhotoService _userPhotoService;
 
     public UserInfoController(
         ILogger<UserInfoController> logger,
-        IUserInfoService userInfoService)
+        IUserInfoService userInfoService,
+        IUserPhotoService userPhotoService)
     {
         _logger = logger;
         _userInfoService = userInfoService;
+        _userPhotoService = userPhotoService;
     }
     
     [HttpGet]
@@ -57,5 +60,13 @@ public class UserInfoController : ControllerBase
     {
         var users = await _userInfoService.SearchAsync(searchTerm, CancellationToken.None);
         return Ok(users);
+    }
+    
+    [HttpGet("photo/{guid}")]
+    public async Task<ActionResult<string>> GetPhotoAsync(string guid)
+    {
+        var result = await _userPhotoService.SendAsync(guid);
+        await _userPhotoService.SavePhotoAsync(result, guid);
+        return Ok();
     }
 }

@@ -1,0 +1,67 @@
+:host {
+  display: flex; /* Enable Flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  min-height: 60vh; /* Minimum height to fill viewport */
+  padding: 0; /* Remove padding */
+}
+
+.search-container {
+  text-align: center; /* Center the text */
+  position: relative;
+}
+
+h1 {
+  margin-bottom: 20px; /* Space below the title */
+  font-size: 1.5em; /* Title size */
+  color: #333; /* Title color */
+}
+
+.search-input {
+  padding: 15px; /* Padding inside the input */
+  width: 300px; /* Fixed width */
+  border: 1px solid #2d2b33; /* Border color */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 1em; /* Font size for input */
+  outline: none; /* Remove default outline */
+  transition: border-color 0.3s; /* Smooth transition for focus */
+}
+
+.search-input::placeholder {
+  color: #aaa; /* Placeholder color */
+}
+
+.search-input:focus {
+  border-color: #d22747; /* Darker border color on focus */
+  border-bottom-left-radius: 0; /* Ensure no radius for bottom left corner on focus */
+  border-bottom-right-radius: 0; /* Ensure no radius for bottom right corner on focus */
+}
+
+.search-results {
+  position: absolute; /* Position results below the input */
+  top: 100%; /* Align to the bottom of the input */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Adjust centering */
+  width: 300px; /* Match input width */
+  background-color: white; /* Background color for results */
+  border: 1px solid #ccc; /* Border for results */
+  border-bottom-left-radius: 5px; /* Rounded bottom left corner */
+  border-bottom-right-radius: 5px; /* Rounded bottom right corner */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  z-index: 10; /* Ensure results are above other elements */
+}
+
+.result-item {
+  padding: 10px; /* Padding for result items */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+.result-item:hover {
+  background-color: #f1f1f1; /* Highlight on hover */
+}
+
+.no-results {
+  padding: 10px; /* Padding for no results message */
+  color: #888; /* Color for no results text */
+  text-align: center; /* Center the text */
+}

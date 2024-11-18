@@ -1,3 +1,4 @@
+using Bgc.Web.Common.Extensions;
 using CorporatePortal.Api;
 using CorporatePortal.BL.Interfaces;
 using CorporatePortal.BL.Services;
@@ -17,27 +18,20 @@ builder.Services.AddDbContext<CorporatePortalContext>(options =>
 	options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddWebCommonServices(builder.Configuration);
 builder.Services.AddScoped(typeof(IDatabaseContextRepository<>), typeof(DatabaseContextRepository<>));
 builder.Services.AddScoped<IDatabaseContextRepository, DatabaseContextRepository>();
 builder.Services.AddTransient<IStartupFilter, MigrationStartupFilter<CorporatePortalContext>>();
 builder.Services.AddTransient<IUserInfoService, UserInfoService>();
+builder.Services.AddTransient<IUserPhotoService, UserPhotoService>();
 
 var app = builder.Build();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-if (!app.Environment.IsDevelopment())
-{
-	app.UseHttpsRedirection();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseAuthorization();
 

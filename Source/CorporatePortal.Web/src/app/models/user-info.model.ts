@@ -13,4 +13,6 @@ export interface UserInfo {
   chiefFullName: string;
   room: string;
   employmentDate: Date;
+  internalPhone: string;
+  workPhone: string;
 }

@@ -14,6 +14,8 @@ public static class AppConfigurationExtensions
         }
         
         RegisterOrDeregisterScheduledJob<UserInfoReadWorker>(app.Configuration);
+        RegisterOrDeregisterScheduledJob<UserInfoDownloadWorker>(app.Configuration);
+        RegisterOrDeregisterScheduledJob<UserPhotoWorker>(app.Configuration);
 
         return app;
     }

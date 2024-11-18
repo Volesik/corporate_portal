@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Bgc.Web.Common\Bgc.Web.Common.csproj" />
       <ProjectReference Include="..\CorporatePortal.DL.EntityFramework\CorporatePortal.DL.EntityFramework.csproj" />
       <ProjectReference Include="..\CorporatePortal.DL\CorporatePortal.DL.csproj" />
     </ItemGroup>

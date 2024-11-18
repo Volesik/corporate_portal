@@ -1,1 +1,11 @@
-﻿
+﻿.main {
+  flex: 1; /* Allow the main content to take available space */
+  display: flex;
+  flex-direction: column; /* Align children in a column */
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Make the wrapper take full height of the viewport */
+}
