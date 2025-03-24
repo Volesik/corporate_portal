@@ -3,24 +3,17 @@ using CorporatePortal.BL.Interfaces;
 using CorporatePortal.Common.Constants;
 using CorporatePortal.Web.Common.HttpClients;
 using CorporatePortal.Web.Common.Models;
+using CorporatePortal.Web.Common.Models.Photo;
 using Microsoft.Extensions.Configuration;
 using Refit;
 
 namespace CorporatePortal.BL.Services;
 
-public class UserPhotoService : IUserPhotoService
+public class UserPhotoService(
+    IConfiguration configuration,
+    IUserServiceApiClient userPhotoClient)
+    : IUserPhotoService
 {
-    private readonly IConfiguration _configuration;
-    private readonly IUserServiceApiClient _userPhotoClient;
-    
-    public UserPhotoService(
-        IConfiguration configuration,
-        IUserServiceApiClient userPhotoClient)
-    {
-        _configuration = configuration;
-        _userPhotoClient = userPhotoClient;
-    }
-
     public async Task<UserPhotoResponseModel?> SendAsync(string guid)
     {
         var payload = CreatePayload(guid);
@@ -28,9 +21,9 @@ public class UserPhotoService : IUserPhotoService
         try
         {
             var authToken = Convert.ToBase64String(Encoding.ASCII.GetBytes(
-                $"{_configuration["PhotoServiceIntegrationSettings:Login"]!}:{_configuration["PhotoServiceIntegrationSettings:Password"]!}"));
+                $"{configuration["PhotoServiceIntegrationSettings:Login"]!}:{configuration["PhotoServiceIntegrationSettings:Password"]!}"));
             var authHeader = $"Basic {authToken}";
-            var result = await _userPhotoClient.SendRequestAsync(payload, authHeader);
+            var result = await userPhotoClient.SendPhotoRequestAsync(payload, authHeader);
 
             return result;
         }
@@ -65,17 +58,17 @@ public class UserPhotoService : IUserPhotoService
         return true;
     }
     
-    private CreateUserPhotoRequestPayload CreatePayload(string guid)
+    private UserPhotoPayload CreatePayload(string guid)
     {
-        Console.WriteLine($"Name is {_configuration["PhotoServiceIntegrationSettings:Name"]!}");
-        return new CreateUserPhotoRequestPayload
+        Console.WriteLine($"Name is {configuration["PhotoServiceIntegrationSettings:Name"]!}");
+        return new UserPhotoPayload
         {
             Kod = guid,
-            Name = _configuration["PhotoServiceIntegrationSettings:Name"]!,
-            Request = _configuration["PhotoServiceIntegrationSettings:Request"]!,
-            Sign = _configuration["PhotoServiceIntegrationSettings:Sign"]!,
-            Type = _configuration["PhotoServiceIntegrationSettings:Type"]!,
-            KeyAccount = _configuration["PhotoServiceIntegrationSettings:KeyAccount"]!,
+            Name = configuration["PhotoServiceIntegrationSettings:Name"]!,
+            Request = configuration["PhotoServiceIntegrationSettings:Request"]!,
+            Sign = configuration["PhotoServiceIntegrationSettings:Sign"]!,
+            Type = configuration["PhotoServiceIntegrationSettings:Type"]!,
+            KeyAccount = configuration["PhotoServiceIntegrationSettings:KeyAccount"]!,
             NameFl = guid,
         };
     }

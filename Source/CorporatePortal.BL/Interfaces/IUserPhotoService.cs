@@ -1,4 +1,4 @@
-﻿using CorporatePortal.Web.Common.Models;
+﻿using CorporatePortal.Web.Common.Models.Photo;
 
 namespace CorporatePortal.BL.Interfaces;
 

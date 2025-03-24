@@ -1,17 +1,15 @@
-using Microsoft.Extensions.DependencyInjection;
 using CorporatePortal.Web.Common.HttpClients;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Refit;
 
-namespace CorporatePortal.BL.Extensions;
+namespace CorporatePortal.Web.Common.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddWebCommonServices(this IServiceCollection services, ConfigurationManager manager)
+    public static void AddWebCommonServices(this IServiceCollection services, ConfigurationManager manager)
     {
         services.AddRefitClients(manager);
-
-        return services;
     }
     
     private static void AddRefitClients(this IServiceCollection services, ConfigurationManager manager)

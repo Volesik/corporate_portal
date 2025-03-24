@@ -1,6 +1,6 @@
-namespace CorporatePortal.Web.Common.Models;
+namespace CorporatePortal.Web.Common.Models.Photo;
 
-public class UserPhotoResponseModel
+public abstract class UserPhotoResponseModel
 {
     public ResponseInfo? Response { get; set; }
     

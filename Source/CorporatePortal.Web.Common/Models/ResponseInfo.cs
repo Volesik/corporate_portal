@@ -1,6 +1,6 @@
 namespace CorporatePortal.Web.Common.Models;
 
-public class ResponseInfo
+public abstract class ResponseInfo
 {
     public bool Status { get; set; }
     

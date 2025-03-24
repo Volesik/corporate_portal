@@ -1,8 +1,6 @@
-using System.Text.Json.Serialization;
-
 namespace CorporatePortal.Web.Common.Models;
 
-public class CreateUserPhotoRequestPayload
+public class BaseUserDataPayload
 {
     public string? KeyAccount { get; set; }
     
@@ -13,9 +11,4 @@ public class CreateUserPhotoRequestPayload
     public string? Type { get; set; }
     
     public string? Name { get; set; }
-    
-    public string? Kod { get; set; }
-    
-    [JsonPropertyName("NameFL")]
-    public string? NameFl { get; set; }
 }

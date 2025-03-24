@@ -1,4 +1,3 @@
-using CorporatePortal.BL.Extensions;
 using CorporatePortal.BL.Interfaces;
 using CorporatePortal.BL.Services;
 using Hangfire;
@@ -7,6 +6,7 @@ using CorporatePortal.Common.Constants;
 using CorporatePortal.DL;
 using CorporatePortal.DL.EntityFramework;
 using CorporatePortal.DL.Repositories;
+using CorporatePortal.Web.Common.Extensions;
 using CorporatePortal.Workers.Extensions;
 using Microsoft.EntityFrameworkCore;
 

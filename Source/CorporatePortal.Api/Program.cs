@@ -1,10 +1,10 @@
 using CorporatePortal.Api;
-using CorporatePortal.BL.Extensions;
 using CorporatePortal.BL.Interfaces;
 using CorporatePortal.BL.Services;
 using CorporatePortal.DL;
 using CorporatePortal.DL.EntityFramework;
 using CorporatePortal.DL.Repositories;
+using CorporatePortal.Web.Common.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 
