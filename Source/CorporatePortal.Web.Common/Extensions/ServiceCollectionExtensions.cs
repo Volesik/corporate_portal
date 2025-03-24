@@ -1,3 +1,4 @@
+using CorporatePortal.Common.Constants;
 using CorporatePortal.Web.Common.HttpClients;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +18,7 @@ public static class ServiceCollectionExtensions
         services.AddRefitClient<IUserServiceApiClient>()
             .ConfigureHttpClient(httpClient =>
             {
-                httpClient.BaseAddress = new Uri(manager["PhotoServiceIntegrationSettings:BaseUrl"]!);
+                httpClient.BaseAddress = new Uri(manager[UserDataApiConstants.BaseUrl]!);
             });
     }
 }
