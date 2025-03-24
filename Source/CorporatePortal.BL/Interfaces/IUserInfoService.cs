@@ -4,9 +4,9 @@ namespace CorporatePortal.BL.Interfaces;
 
 public interface IUserInfoService
 {
-    Task<UserInfo[]> GetAllAsync(string? searchTerm, int skip, CancellationToken token);
+    Task<UserInfo[]> GetAsync(string? searchTerm, CancellationToken token, int skip = 0, int take = 0);
     
-    Task<UserInfo?> GetByIdAsync(long id, CancellationToken token);
+    Task<UserInfo?> GetAsync(long id, CancellationToken token);
     
     Task<UserInfo[]> SearchAsync(string? searchTerm, CancellationToken token);
     

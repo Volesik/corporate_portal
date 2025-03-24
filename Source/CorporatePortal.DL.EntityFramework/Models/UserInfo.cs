@@ -37,4 +37,6 @@ public class UserInfo : BaseEntity
     public string? AlternativeName { get; set; }
     
     public string? InternalPhone { get; set; }
+    
+    public bool IsActive { get; set; }
 }

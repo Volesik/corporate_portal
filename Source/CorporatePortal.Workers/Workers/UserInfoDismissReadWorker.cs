@@ -1,10 +1,14 @@
-﻿using CorporatePortal.BL.Interfaces;
+using CorporatePortal.BL.Interfaces;
 using CorporatePortal.Workers.Interfaces;
 using Hangfire;
 
 namespace CorporatePortal.Workers.Workers;
 
-public abstract class UserInfoDownloadWorker(IBackgroundJobClient backgroundJobClient, IDownloader downloader) : IWorker
+public class UserInfoDismissReadWorker(
+    IBackgroundJobClient backgroundJobClient,
+    IExternalUserDataService externalUserDataService,
+    IUserInfoService userInfoService)
+    : IWorker
 {
     public Task ExecuteAsync(int bulkSize)
     {
@@ -22,6 +26,6 @@ public abstract class UserInfoDownloadWorker(IBackgroundJobClient backgroundJobC
 
     private async Task ProcessAsync()
     {
-        await downloader.DownloadUserInfoDataAsync();
+        await userInfoService.CountAsync(null, CancellationToken.None);
     }
 }

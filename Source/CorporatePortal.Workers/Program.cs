@@ -8,6 +8,7 @@ using CorporatePortal.DL.EntityFramework;
 using CorporatePortal.DL.Repositories;
 using CorporatePortal.Web.Common.Extensions;
 using CorporatePortal.Workers.Extensions;
+using CorporatePortal.Workers.Mappers;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -41,7 +42,8 @@ builder.Services.AddScoped<IDatabaseContextRepository, DatabaseContextRepository
 builder.Services.AddWebCommonServices(builder.Configuration);
 builder.Services.AddTransient<IUserInfoService, UserInfoService>();
 builder.Services.AddTransient<IDownloader, Downloader>();
-builder.Services.AddTransient<IUserPhotoService, UserPhotoService>();
+builder.Services.AddSingleton<IExternalUserDataService, ExternalUserDataService>();
+builder.Services.AddTransient<UserInfoMapper>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -8,52 +8,47 @@ using CorporatePortal.DL.Specifications.User;
 
 namespace CorporatePortal.BL.Services;
 
-public class UserInfoService : IUserInfoService
+public class UserInfoService(IDatabaseContextRepository<UserInfo> userInfoRepository) : IUserInfoService
 {
-    private readonly IDatabaseContextRepository<UserInfo> _userInfoRepository;
-
-    public UserInfoService(IDatabaseContextRepository<UserInfo> userInfoRepository)
-    {
-        _userInfoRepository = userInfoRepository;
-    }
-    
-    public async Task<UserInfo[]> GetAllAsync(string? searchTerm, int skip, CancellationToken token)
+    public async Task<UserInfo[]> GetAsync(string? searchTerm, CancellationToken token, int skip = 0, int take = 0)
     {
         var specification = searchTerm == null
             ? (Specification<UserInfo>)new TrueSpecification<UserInfo>()
             : new SearchUserInfoByFullName(searchTerm);
-        var users = await _userInfoRepository.GetArrayAsync(specification, token, skip, take: 20);
+        
+        var users = await userInfoRepository.GetArrayAsync(specification, token, skip, take: take);
+        
         return users;
     }
 
-    public async Task<UserInfo?> GetByIdAsync(long id, CancellationToken token)
+    public async Task<UserInfo?> GetAsync(long id, CancellationToken token)
     {
         var specification = new FindEntitiesByIds<UserInfo>(id);
-        var user = await _userInfoRepository.FirstOrDefaultAsync(specification, token);
+        var user = await userInfoRepository.FirstOrDefaultAsync(specification, token);
         return user;
     }
 
     public async Task<UserInfo[]> SearchAsync(string? searchTerm, CancellationToken token)
     {
         var specification = new SearchUserInfoByFullName(searchTerm);
-        var users = await _userInfoRepository.GetArrayAsync(specification, token, skip: default, take: 5);
+        var users = await userInfoRepository.GetArrayAsync(specification, token, skip: default, take: 5);
         return users;
     }
 
     public Task<UserInfo[]> GetTodayBirthdayUsersAsync(CancellationToken token)
     {
         var specification = new FindTodayBirthdayUsers();
-        var users = _userInfoRepository.GetArrayAsync(specification, token);
+        var users = userInfoRepository.GetArrayAsync(specification, token);
         return users;
     }
 
     public async Task UpsertAsync(UserInfo userInfo, CancellationToken token)
     {
         var searchSpecification = new FindUserInfoByUniqueIds(userInfo.UniqueId);
-        var isUserExists = await _userInfoRepository.AnyAsync(searchSpecification, token);
+        var isUserExists = await userInfoRepository.AnyAsync(searchSpecification, token);
         if (isUserExists)
         {
-            await _userInfoRepository.UpdateAsync(
+            await userInfoRepository.UpdateAsync(
                 searchSpecification,
                 dbUser =>
                 {
@@ -78,7 +73,7 @@ public class UserInfoService : IUserInfoService
             return;
         }
         
-        await _userInfoRepository.AddAsync(userInfo, token);
+        await userInfoRepository.AddAsync(userInfo, token);
     }
 
     public async Task<int> CountAsync(string? searchTerm, CancellationToken token)
@@ -87,6 +82,6 @@ public class UserInfoService : IUserInfoService
             ? (Specification<UserInfo>)new TrueSpecification<UserInfo>()
             : new SearchUserInfoByFullName(searchTerm);
         
-        return await _userInfoRepository.CountAsync(specification, token);
+        return await userInfoRepository.CountAsync(specification, token);
     }
 }

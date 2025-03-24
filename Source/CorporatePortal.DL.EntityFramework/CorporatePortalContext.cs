@@ -13,6 +13,10 @@ public class CorporatePortalContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<UserInfo>().ConfigureBaseProperties();
+        
+        modelBuilder.Entity<UserInfo>()
+            .HasIndex(u => u.UniqueId)
+            .IsUnique();
     }
 
     public DbSet<UserInfo> UserInfos { get; set; } = null!;

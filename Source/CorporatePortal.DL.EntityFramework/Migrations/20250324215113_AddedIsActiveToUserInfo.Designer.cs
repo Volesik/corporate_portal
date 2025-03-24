@@ -3,6 +3,7 @@ using System;
 using CorporatePortal.DL.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CorporatePortal.DL.EntityFramework.Migrations
 {
     [DbContext(typeof(CorporatePortalContext))]
-    partial class CorporatePortalContextModelSnapshot : ModelSnapshot
+    [Migration("20250324215113_AddedIsActiveToUserInfo")]
+    partial class AddedIsActiveToUserInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,9 +101,6 @@ namespace CorporatePortal.DL.EntityFramework.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Id");
-
-                    b.HasIndex("UniqueId")
-                        .IsUnique();
 
                     b.ToTable("UserInfos");
                 });

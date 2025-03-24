@@ -23,7 +23,7 @@ builder.Services.AddScoped(typeof(IDatabaseContextRepository<>), typeof(Database
 builder.Services.AddScoped<IDatabaseContextRepository, DatabaseContextRepository>();
 builder.Services.AddTransient<IStartupFilter, MigrationStartupFilter<CorporatePortalContext>>();
 builder.Services.AddTransient<IUserInfoService, UserInfoService>();
-builder.Services.AddTransient<IUserPhotoService, UserPhotoService>();
+builder.Services.AddTransient<IExternalUserDataService, ExternalUserDataService>();
 
 var app = builder.Build();
 

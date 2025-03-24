@@ -7,22 +7,12 @@ using Hangfire.Tags.Attributes;
 
 namespace CorporatePortal.Workers.Workers;
 
-public class UserPhotoWorker : IWorker
+public abstract class UserPhotoWorker(
+    IBackgroundJobClient backgroundJobClient,
+    IExternalUserDataService externalUserDataService,
+    IUserInfoService userInfoService)
+    : IWorker
 {
-    private readonly IBackgroundJobClient _backgroundJobClient;
-    private readonly IUserPhotoService _userPhotoService;
-    private readonly IUserInfoService _userInfoService;
-    
-    public UserPhotoWorker(
-        IBackgroundJobClient backgroundJobClient,
-        IUserPhotoService userPhotoService,
-        IUserInfoService userInfoService)
-    {
-        _backgroundJobClient = backgroundJobClient;
-        _userPhotoService = userPhotoService;
-        _userInfoService = userInfoService;
-    }
-    
     [DisableConcurrentExecution(60 * 5)]
     [Tag("Scheduled job")]
     [Queue(WorkerQueueConstants.PhotoDownloadQueueName)]
@@ -30,10 +20,11 @@ public class UserPhotoWorker : IWorker
     {
         try
         {
-            var users = await _userInfoService.GetAllAsync(null, 0, CancellationToken.None);
+            var users = await userInfoService.GetAsync(null, CancellationToken.None);
+            
             foreach (var user in users)
             {
-                _backgroundJobClient.Enqueue(() => ProcessAsync(user.Id, user.UniqueId.ToString()));
+                backgroundJobClient.Enqueue(() => ProcessAsync(user.UniqueId.ToString()));
             }
         }
         catch (Exception e)
@@ -44,11 +35,12 @@ public class UserPhotoWorker : IWorker
 
     [DisableConcurrentExecution(60 * 5)]
     [Tag("Create Location")]
-    [DisplayName("Download photo for user with guid: {1}")]
+    [DisplayName("Download photo for user with guid: {0}")]
     [Queue(WorkerQueueConstants.PhotoDownloadQueueName)]
-    public async Task ProcessAsync(long userId, string guid)
+    private async Task ProcessAsync(string guid)
     {
-        var result = await _userPhotoService.SendAsync(guid);
-        await _userPhotoService.SavePhotoAsync(result, guid);
+        var result = await externalUserDataService.SendPhotoRequestAsync(guid);
+        
+        await externalUserDataService.SavePhotoAsync(result, guid);
     }
 }
