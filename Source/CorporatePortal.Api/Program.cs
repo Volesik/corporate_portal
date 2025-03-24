@@ -1,5 +1,5 @@
-using Bgc.Web.Common.Extensions;
 using CorporatePortal.Api;
+using CorporatePortal.BL.Extensions;
 using CorporatePortal.BL.Interfaces;
 using CorporatePortal.BL.Services;
 using CorporatePortal.DL;

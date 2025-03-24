@@ -1,6 +1,6 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
-namespace Bgc.Web.Common.Models;
+namespace CorporatePortal.Web.Common.Models;
 
 public class CreateUserPhotoRequestPayload
 {

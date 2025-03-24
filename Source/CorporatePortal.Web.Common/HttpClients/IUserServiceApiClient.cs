@@ -1,10 +1,10 @@
-﻿using Refit;
-using Bgc.Web.Common.Models;
+using Refit;
 using CorporatePortal.Common.Constants;
+using CorporatePortal.Web.Common.Models;
 
-namespace Bgc.Web.Common.HttpClients;
+namespace CorporatePortal.Web.Common.HttpClients;
 
-public interface IUsersPhotoClient
+public interface IUserServiceApiClient
 {
     [Post("/mis/hs/api")]
     Task<UserPhotoResponseModel> SendRequestAsync(

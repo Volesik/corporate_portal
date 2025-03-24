@@ -1,4 +1,4 @@
-using Bgc.Web.Common.Extensions;
+using CorporatePortal.BL.Extensions;
 using CorporatePortal.BL.Interfaces;
 using CorporatePortal.BL.Services;
 using Hangfire;

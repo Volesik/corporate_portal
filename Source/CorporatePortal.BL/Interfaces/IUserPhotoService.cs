@@ -1,4 +1,4 @@
-﻿using Bgc.Web.Common.Models;
+﻿using CorporatePortal.Web.Common.Models;
 
 namespace CorporatePortal.BL.Interfaces;
 

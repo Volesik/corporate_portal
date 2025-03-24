@@ -1,8 +1,8 @@
 ﻿using System.Text;
-using Bgc.Web.Common.HttpClients;
-using Bgc.Web.Common.Models;
 using CorporatePortal.BL.Interfaces;
 using CorporatePortal.Common.Constants;
+using CorporatePortal.Web.Common.HttpClients;
+using CorporatePortal.Web.Common.Models;
 using Microsoft.Extensions.Configuration;
 using Refit;
 
@@ -11,11 +11,11 @@ namespace CorporatePortal.BL.Services;
 public class UserPhotoService : IUserPhotoService
 {
     private readonly IConfiguration _configuration;
-    private readonly IUsersPhotoClient _userPhotoClient;
+    private readonly IUserServiceApiClient _userPhotoClient;
     
     public UserPhotoService(
         IConfiguration configuration,
-        IUsersPhotoClient userPhotoClient)
+        IUserServiceApiClient userPhotoClient)
     {
         _configuration = configuration;
         _userPhotoClient = userPhotoClient;

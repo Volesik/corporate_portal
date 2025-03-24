@@ -1,10 +1,9 @@
-﻿using Bgc.Web.Common.HttpClients;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
+using CorporatePortal.Web.Common.HttpClients;
+using Microsoft.Extensions.Configuration;
 using Refit;
 
-namespace Bgc.Web.Common.Extensions;
+namespace CorporatePortal.BL.Extensions;
 
 public static class ServiceCollectionExtensions
 {
@@ -17,7 +16,7 @@ public static class ServiceCollectionExtensions
     
     private static void AddRefitClients(this IServiceCollection services, ConfigurationManager manager)
     {
-        services.AddRefitClient<IUsersPhotoClient>()
+        services.AddRefitClient<IUserServiceApiClient>()
             .ConfigureHttpClient(httpClient =>
             {
                 httpClient.BaseAddress = new Uri(manager["PhotoServiceIntegrationSettings:BaseUrl"]!);
