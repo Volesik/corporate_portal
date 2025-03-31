@@ -7,7 +7,7 @@ using Hangfire.Tags.Attributes;
 
 namespace CorporatePortal.Workers.Workers;
 
-public abstract class UserPhotoWorker(
+public class UserPhotoWorker(
     IBackgroundJobClient backgroundJobClient,
     IExternalUserDataService externalUserDataService,
     IUserInfoService userInfoService)
@@ -37,7 +37,7 @@ public abstract class UserPhotoWorker(
     [Tag("Create Location")]
     [DisplayName("Download photo for user with guid: {0}")]
     [Queue(WorkerQueueConstants.PhotoDownloadQueueName)]
-    private async Task ProcessAsync(string guid)
+    public async Task ProcessAsync(string guid)
     {
         var result = await externalUserDataService.SendPhotoRequestAsync(guid);
         

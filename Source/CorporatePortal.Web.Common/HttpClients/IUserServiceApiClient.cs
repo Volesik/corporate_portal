@@ -12,7 +12,7 @@ public interface IUserServiceApiClient
     Task<UserPhotoResponseModel> SendPhotoRequestAsync(UserPhotoPayload payload, [Header(AuthConstants.Authorization)] string auth);
     
     [Post("")]
-    Task<UserDataResponseModel> SendUserDataRequestAsync(BaseUserDataPayload payload, [Header(AuthConstants.Authorization)] string auth);
+    Task<string> SendUserDataRequestAsync(BaseUserDataPayload payload, [Header(AuthConstants.Authorization)] string auth);
     
     [Post("")]
     Task<UserDataDismissResponseModel> SendUserDismissDataRequestAsync(BaseUserDataPayload payload, [Header(AuthConstants.Authorization)] string auth);

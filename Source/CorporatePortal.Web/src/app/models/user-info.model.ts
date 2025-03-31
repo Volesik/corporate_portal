@@ -15,4 +15,5 @@ export interface UserInfo {
   employmentDate: Date;
   internalPhone: string;
   workPhone: string;
+  birthday: Date | string;
 }

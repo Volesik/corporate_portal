@@ -1,6 +1,8 @@
 namespace CorporatePortal.Web.Common.Models.UserData;
 
-public abstract class UserDataDismissResponseModel
+public class UserDataDismissResponseModel
 {
+    public ResponseInfo? Response { get; set; }
     
+    public List<ResponseData>? Data { get; set; }
 }

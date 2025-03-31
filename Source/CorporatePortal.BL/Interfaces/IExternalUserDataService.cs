@@ -9,7 +9,7 @@ public interface IExternalUserDataService
 
     Task<bool> SavePhotoAsync(UserPhotoResponseModel? userPhotoResponseModel, string name);
 
-    Task<UserDataResponseModel?> SendUserDataRequestAsync();
+    Task SendUserDataRequestAsync();
 
     Task<UserDataDismissResponseModel?> SendUserDataDismissAsync();
 }

@@ -1,6 +1,9 @@
+using System.ComponentModel;
 using CorporatePortal.BL.Interfaces;
+using CorporatePortal.Common.Constants;
 using CorporatePortal.Workers.Interfaces;
 using Hangfire;
+using Hangfire.Tags.Attributes;
 
 namespace CorporatePortal.Workers.Workers;
 
@@ -10,22 +13,31 @@ public class UserInfoDismissReadWorker(
     IUserInfoService userInfoService)
     : IWorker
 {
-    public Task ExecuteAsync(int bulkSize)
+    public async Task ExecuteAsync(int bulkSize)
     {
         try
         {
-            backgroundJobClient.Enqueue(() => ProcessAsync());
+            var dismissedUsers = await externalUserDataService.SendUserDataDismissAsync();
+            if (dismissedUsers?.Data != null)
+            {
+                foreach (var data in dismissedUsers.Data)
+                {
+                    backgroundJobClient.Enqueue(() => ProcessAsync(data.Kod!));
+                }
+            }
         }
         catch (Exception e)
         {
             Console.WriteLine($"An error occured: {e.Message}");
         }
-
-        return Task.CompletedTask;
     }
 
-    private async Task ProcessAsync()
+    [DisableConcurrentExecution(60 * 5)]
+    [Tag("Disable ser")]
+    [DisplayName("Disable user with guid: {0}")]
+    [Queue(WorkerQueueConstants.UserDismissed)]
+    public async Task ProcessAsync(string guid)
     {
-        await userInfoService.CountAsync(null, CancellationToken.None);
+        await userInfoService.DisableUser(guid, CancellationToken.None);
     }
 }

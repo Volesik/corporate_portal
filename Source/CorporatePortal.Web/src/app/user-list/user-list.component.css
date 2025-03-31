@@ -1,28 +1,87 @@
-.user-list__search-info {
-  display: flex;
-  justify-content: space-between;
+.page-small-title {
+  font-size: 16px;
 }
 
-.user-pagination__list li a {
+.page-small-subtitle__border {
+  font-size: 12px;
+  font-weight: bold;
+  border-bottom: 1px solid #DCDCDC;
+}
+
+.employee-card__text {
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.employee-card__title {
+  font-size: 0.9rem;
+}
+
+.employee-card__description {
+  font-size: 0.7rem;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.title-count {
+  font-size: 0.6rem;
+  font-weight: 500;
+}
+
+.title-count__quantity {
+  font-size: 10px;
+}
+
+.btn.disabled, .btn:disabled, fieldset:disabled .btn {
+  background-color: #2d2b33;
+  border-color: #2d2b33;
+  opacity: 1;
+}
+
+.alert-black {
+  --bs-alert-color: #e6e7e8;
+  --bs-alert-bg: #2d2b33;
+  --bs-alert-border-color: #2d2b33;
+  --bs-alert-link-color: #e6e7e8;
+}
+
+.active>.page-link, .page-link.active {
+  z-index: 3;
+  color: var(--bs-pagination-active-color);
+  background-color: #d22747;
+  border-color: #d22747;
+}
+
+.page-link {
+  color: #2d2b33;
+}
+
+li.page-item .page-link:hover {
+  color: red;
+}
+
+li.page-item.active .page-link:hover {
+  color: #e6e7e8;
+}
+
+.page-link:focus {
+  box-shadow: 0 0 0 0.25rem rgba(210, 39, 71, 0.25);;
+}
+
+
+a {
   text-decoration: none;
-  padding: 8px 12px; /* Space around the text */
-  transition: color 0.3s; /* Smooth transition for text color */
+  color: #1b1a1f;
 }
 
-.user-pagination__list li:hover {
-  background-color: #fae6e4;
+a:hover {
+  color: #d22747;
 }
 
-.user-pagination__list li.active {
-  background-color: #d22747; /* Background color for active page */
-}
-
-.user-pagination__list li.active a {
-  color: white; /* Text color for active page */
-}
-
-.user-pagination__list li.ellipsis {
-  cursor: default; /* Change cursor to default to indicate it's not clickable */
-  color: #666; /* Gray color for ellipsis */
-  pointer-events: none; /* Prevent hover effects */
+.page-item:hover {
+  cursor: pointer;
 }

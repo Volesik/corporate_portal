@@ -1,4 +1,6 @@
 using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Json;
 using CorporatePortal.BL.Interfaces;
 using CorporatePortal.Common.Constants;
 using CorporatePortal.Web.Common.HttpClients;
@@ -54,12 +56,24 @@ public class ExternalUserDataService : IExternalUserDataService
         return true;
     }
 
-    public async Task<UserDataResponseModel?> SendUserDataRequestAsync()
+    public async Task SendUserDataRequestAsync()
     {
         var payload = CreateUserDataPayload(UserDataApiConstants.UserDataMethodName);
         var result = await _userPhotoClient.SendUserDataRequestAsync(payload, _authHeader);
         
-        return result;
+        using var doc = JsonDocument.Parse(result);
+        var data = doc.RootElement.GetProperty(UserDataApiConstants.DataRootName);
+        
+        var dataJson = JsonSerializer.Serialize(data, new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+        });
+        
+        var currentDirectory = AppContext.BaseDirectory;
+        var userInfosJsonFile = Path.Combine(currentDirectory, "test.json");
+        
+        await File.WriteAllTextAsync(userInfosJsonFile, dataJson);
     }
 
     public async Task<UserDataDismissResponseModel?> SendUserDataDismissAsync()
@@ -99,7 +113,7 @@ public class ExternalUserDataService : IExternalUserDataService
     private string CreateAuthHeader()
     {
         var authToken = Convert.ToBase64String(Encoding.ASCII.GetBytes(
-            $"{_configuration[UserDataApiConstants.Login]!}:{_configuration[UserDataApiConstants.Login]!}"));
+            $"{_configuration[UserDataApiConstants.Login]!}:{_configuration[UserDataApiConstants.Password]!}"));
         
         return $"{UserDataApiConstants.AuthMethod} {authToken}";
     }

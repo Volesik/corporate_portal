@@ -9,6 +9,7 @@ import { Subject, debounceTime, switchMap } from 'rxjs';
   styleUrl: './main.component.css'
 })
 export class MainComponent {
+  selectedIndex: number = -1;
   searchText: string = '';
   showResults: boolean = false;
   filteredResults: UserInfo[] = [];
@@ -25,6 +26,7 @@ export class MainComponent {
   }
 
   onSearch(event: Event) {
+    this.selectedIndex = -1;
     const input = event.target as HTMLInputElement; // Cast the target to HTMLInputElement
     this.searchText = input.value; // Get the value from the input
 
@@ -67,5 +69,35 @@ export class MainComponent {
     setTimeout(() => {
       this.showResults = false;
     }, 100);
+  }
+
+  onKeyDown(event: KeyboardEvent) {
+    if (!this.filteredResults.length) return;
+  
+    switch (event.key) {
+      case 'ArrowDown':
+        this.selectedIndex = (this.selectedIndex + 1) % this.filteredResults.length;
+        event.preventDefault();
+        break;
+  
+      case 'ArrowUp':
+        this.selectedIndex =
+          (this.selectedIndex - 1 + this.filteredResults.length) % this.filteredResults.length;
+        event.preventDefault();
+        break;
+  
+      case 'Enter':
+        if (this.selectedIndex >= 0 && this.selectedIndex < this.filteredResults.length) {
+          this.goToUser(this.filteredResults[this.selectedIndex].id);
+          event.preventDefault();
+        } else {
+          this.goToUsers(this.searchText); // fallback
+        }
+        break;
+  
+      case 'Escape':
+        this.showResults = false;
+        break;
+    }
   }
 }

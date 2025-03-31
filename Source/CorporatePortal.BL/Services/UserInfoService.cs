@@ -13,7 +13,7 @@ public class UserInfoService(IDatabaseContextRepository<UserInfo> userInfoReposi
     public async Task<UserInfo[]> GetAsync(string? searchTerm, CancellationToken token, int skip = 0, int take = 0)
     {
         var specification = searchTerm == null
-            ? (Specification<UserInfo>)new TrueSpecification<UserInfo>()
+            ? (Specification<UserInfo>)new FindUserInfoByActive(true)
             : new SearchUserInfoByFullName(searchTerm);
         
         var users = await userInfoRepository.GetArrayAsync(specification, token, skip, take: take);
@@ -35,9 +35,9 @@ public class UserInfoService(IDatabaseContextRepository<UserInfo> userInfoReposi
         return users;
     }
 
-    public Task<UserInfo[]> GetTodayBirthdayUsersAsync(CancellationToken token)
+    public Task<UserInfo[]> GetUpcomingBirthdayUsersAsync(CancellationToken token)
     {
-        var specification = new FindTodayBirthdayUsers();
+        var specification = new FindUpcomingBirthdayUsers();
         var users = userInfoRepository.GetArrayAsync(specification, token);
         return users;
     }
@@ -67,6 +67,7 @@ public class UserInfoService(IDatabaseContextRepository<UserInfo> userInfoReposi
                     dbUser.EmploymentDate = userInfo.EmploymentDate;
                     dbUser.AlternativeName = userInfo.AlternativeName;
                     dbUser.InternalPhone = userInfo.InternalPhone;
+                    dbUser.IsActive = true;
                 },
                 token);
             
@@ -83,5 +84,25 @@ public class UserInfoService(IDatabaseContextRepository<UserInfo> userInfoReposi
             : new SearchUserInfoByFullName(searchTerm);
         
         return await userInfoRepository.CountAsync(specification, token);
+    }
+
+    public async Task DisableUser(string guid, CancellationToken token)
+    {
+        if (Guid.TryParse(guid, out var uniqueId))
+        {
+            var specification = new FindUserInfoByUniqueIds(uniqueId);
+            var isUserExists = await userInfoRepository.AnyAsync(specification, token);
+            if (isUserExists)
+            {
+                await userInfoRepository.UpdateAsync(
+                    specification,
+                    dbUser =>
+                    {
+                        dbUser.IsActive = false;
+                    },
+                    token);
+            }
+        }
+        
     }
 }

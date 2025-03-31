@@ -18,13 +18,12 @@
       <div class="detail-page__info">
         <h1>{{ userInfo?.fullName }}</h1>
         <p *ngIf="userInfo?.email"><b>Email:</b> {{ userInfo?.email }}</p>
-        <p *ngIf="userInfo?.mobilePhone"><b>Мобільний телефон:</b> {{ userInfo?.mobilePhone }}</p>
-        <p *ngIf="userInfo?.workPhone"><b>Корпоративний телефон:</b> {{ userInfo?.workPhone }}</p>
+        <p *ngIf="userInfo?.workPhone || userInfo?.mobilePhone"><b>Мобільний телефон:</b> {{ userInfo?.workPhone || userInfo?.mobilePhone }}</p>
         <p *ngIf="userInfo?.internalPhone"><b>Внутрішній телефон:</b> {{ userInfo?.internalPhone }}</p>
         <p *ngIf="userInfo?.department"><b>Департамент:</b> {{ userInfo?.department }}</p>
         <p *ngIf="userInfo?.subDepartment"><b>Відділ:</b> {{ userInfo?.subDepartment }} </p>
         <p *ngIf="userInfo?.position"><b>Посада:</b> {{ userInfo?.position }}</p>
-        <p *ngIf="userInfo?.chiefFullName"><b>Керівник:</b> {{ userInfo?.chiefFullName }} </p>
+        <p *ngIf="userInfo?.birthday"><b>День народження:</b> {{ userInfo?.birthday | date: 'd MMMM' : undefined : 'uk-UA' }}</p>
         <p *ngIf="userInfo?.city"><b>Місто:</b> {{ userInfo?.city }}</p>
       </div>
     </div>

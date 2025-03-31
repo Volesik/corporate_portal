@@ -1,25 +1,26 @@
-<div class="wrapper">
-  <div class="search-container">
-    <h1>Пошук співробітника:</h1>
+<div class="d-flex flex-column align-items-center justify-content-center text-center" style="min-height: 50vh;">
+  <h1 class="mb-4 search-title">Пошук співробітника:</h1>
+  <div class="input-group mb-3 w-50">
     <input
-      class="search-input"
+      class="form-control py-3 search-input"
       type="text"
-      placeholder="Шукати працівників"
+      placeholder="Пошук..."
       (input)="onSearch($event)"
       (focus)="showResults = true"
       (blur)="hideResults()"
       (keydown.enter)="goToUsers(searchText)"
+      (keydown)="onKeyDown($event)"
     />
+  </div>
 
-    <div class="search-results" *ngIf="showResults">
-      <div *ngIf="filteredResults.length; else noResults">
-        <div *ngFor="let user of filteredResults" class="result-item" (click)="goToUser(user.id)">
-          {{ user.fullName }}
-        </div>
+  <div class="search-results" *ngIf="showResults">
+    <div *ngIf="filteredResults.length; else noResults">
+      <div *ngFor="let user of filteredResults; let i = index" class="result-item" [class.active]="i === selectedIndex" (mousedown)="goToUser(user.id)">
+        {{ user.fullName }}
       </div>
-      <ng-template #noResults>
-        <div class="no-results">Нічого не знайдено</div>
-      </ng-template>
     </div>
+    <ng-template #noResults>
+      <div class="no-results">Нічого не знайдено</div>
+    </ng-template>
   </div>
 </div>

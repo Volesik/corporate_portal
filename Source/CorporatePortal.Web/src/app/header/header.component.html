@@ -1,42 +1,43 @@
-<header>
-  <div class="container">
-    <div class="row justify-content-between">
-      <div class="col col-lg-2">
-        <a href="/"><img class="logo" src="assets/images/bayadera.svg" alt="bayadera" /></a>
-      </div>
-      <div class="col-md-auto">
-        <div class="search-container">
-          <input
-            class="header-search-field"
-            type="text"
-            placeholder="Шукати працівників"
-            (input)="onSearch($event)"
-            (focus)="showResults = true"
-            (blur)="hideResults()"
-            (keydown.enter)="goToUsers(searchText)"
-          />
+<header class="py-3 bg-body-dark border-bottom-grey position-relative">
+  <div class="container d-flex flex-wrap justify-content-center">
+    <a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-decoration-none">
+      <img width="200px" src="assets/images/bayadera.svg" alt="Bayadera">
+    </a>
 
-          <div class="search-results" *ngIf="showResults">
-            <div *ngIf="filteredResults.length; else noResults">
-              <div *ngFor="let user of filteredResults" class="result-item" (click)="goToUser(user.id)">
-                {{ user.fullName }}
-              </div>
-            </div>
-            <ng-template #noResults>
-              <div class="no-results">Нічого не знайдено</div>
-            </ng-template>
+    <div class="search-wrapper position-relative col-12 col-lg-3 mb-3 mb-lg-0">
+      <input
+        class="form-control search-input"
+        type="text"
+        placeholder="Пошук..."
+        (input)="onSearch($event)"
+        (focus)="showResults = true"
+        (blur)="hideResults()"
+        (keydown)="onKeyDown($event)"
+      />
+      <!-- DROPDOWN FLOATING BELOW INPUT -->
+      <div class="search-results position-absolute" *ngIf="showResults">
+        <div *ngIf="filteredResults.length; else noResults">
+          <div *ngFor="let user of filteredResults; let i = index"
+               class="result-item"
+               [class.active]="i === selectedIndex"
+               (mousedown)="goToUser(user.id)">
+            {{ user.fullName }}
           </div>
         </div>
-
+        <ng-template #noResults>
+          <div class="no-results">Нічого не знайдено</div>
+        </ng-template>
       </div>
     </div>
   </div>
 </header>
-<nav class="menu">
-  <div class="container">
-    <ul>
-      <li><a href="/">ГОЛОВНА</a></li>
-      <li><a href="/users">ПРАЦІВНИКИ КОМПАНІЇ</a></li>
-    </ul>
+
+<nav class="py-2 bg-body-dark border-bottom">
+  <div class="container d-flex flex-wrap">
+      <ul class="nav me-auto">
+          <li class="nav-item"><a href="/" class="nav-link px-2 active" aria-current="page">ГОЛОВНА</a></li>
+          <li class="nav-item"><a href="/users" class="nav-link px-2">ПРАЦІВНИКИ КОМПАНІЇ</a></li>
+      </ul>
   </div>
 </nav>
+

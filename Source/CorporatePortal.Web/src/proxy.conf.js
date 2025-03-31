@@ -3,7 +3,7 @@ const PROXY_CONFIG = [
     context: [
       "/userinfo",
     ],
-    target: "http://localhost:5116",
+    target: "http://localhost:5000",
     secure: false
   },
 ]

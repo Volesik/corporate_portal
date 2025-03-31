@@ -1,6 +1,6 @@
 namespace CorporatePortal.Web.Common.Models;
 
-public abstract class ResponseData
+public class ResponseData
 {
     public string? Kod { get; set; }
     

@@ -10,9 +10,11 @@ public interface IUserInfoService
     
     Task<UserInfo[]> SearchAsync(string? searchTerm, CancellationToken token);
     
-    Task<UserInfo[]> GetTodayBirthdayUsersAsync(CancellationToken token);
+    Task<UserInfo[]> GetUpcomingBirthdayUsersAsync(CancellationToken token);
 
     Task UpsertAsync(UserInfo userInfo, CancellationToken token);
     
     Task<int> CountAsync(string? searchTerm, CancellationToken token);
+
+    Task DisableUser(string guid, CancellationToken token);
 }

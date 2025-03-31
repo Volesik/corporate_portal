@@ -8,7 +8,7 @@ import {UserInfo} from "../models/user-info.model";
   styleUrl: './birthday.component.css'
 })
 export class BirthdayComponent implements OnInit {
-  public birthdays: UserInfo[] = [];
+  public birthdaysByDate: { [key: string]: UserInfo[] } = {};
   private noImagePlaceholder = 'assets/images/no-image-placeholder.svg';
   private imageFolder = 'assets/images/employees/';
 
@@ -18,42 +18,42 @@ export class BirthdayComponent implements OnInit {
     this.getUsersByBirthday();
   }
 
-  async getImageUrl(uniqueId: string): Promise<string> {
-    const jpgPath = `${this.imageFolder}${uniqueId}.jpg`;
-    const pngPath = `${this.imageFolder}${uniqueId}.png`;
+  getUsersByBirthday() {
+    this.http.get<UserInfo[]>('/userinfo/getTodayBirthdayUsers').subscribe(async users => {
+      const today = new Date();
 
-    // Use a temporary Image object to check for existence
-    const img = new Image();
-    img.src = jpgPath;
+      for (const user of users) {
+        const birthday = new Date(user.birthday);
+        birthday.setFullYear(today.getFullYear());
 
-    return await new Promise<string>((resolve) => {
-      img.onload = () => resolve(jpgPath);
-      img.onerror = () => {
-        // Check for PNG
-        img.src = pngPath;
-        img.onload = () => resolve(pngPath);
-        img.onerror = () => resolve(this.noImagePlaceholder); // Fallback to placeholder
-      };
+        const diffDays = Math.floor((birthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+        if (diffDays < 0 || diffDays > 2) continue;
+
+        const label = birthday.toLocaleDateString('uk-UA', {
+          day: 'numeric',
+          month: 'long'
+        });
+
+        if (!this.birthdaysByDate[label]) this.birthdaysByDate[label] = [];
+        this.birthdaysByDate[label].push(user);
+      }
     });
   }
 
-  getUsersByBirthday() {
-    this.http.get<UserInfo[]>('/userinfo/getTodayBirthdayUsers').subscribe(
-      async (data) => {
-        const birthdayPromises = data.map(async (user) => {
-          const imageUrl = await this.getImageUrl(user.uniqueId); // Wait for the promise to resolve
-          return {
-            ...user,
-            imageUrl // Add imageUrl to the user object
-          };
-        });
-
-        // Wait for all promises to resolve
-        this.birthdays = await Promise.all(birthdayPromises);
-      },
-      (error) => {
-        console.error('Error fetching birthdays user info data: ' + error);
-      }
-    );
+  get sortedDateKeys(): string[] {
+    const monthMap: { [key: string]: number } = {
+      'січня': 0, 'лютого': 1, 'березня': 2, 'квітня': 3, 'травня': 4, 'червня': 5,
+      'липня': 6, 'серпня': 7, 'вересня': 8, 'жовтня': 9, 'листопада': 10, 'грудня': 11
+    };
+  
+    return Object.keys(this.birthdaysByDate).sort((a, b) => {
+      const [dayA, monthA] = a.split(' ');
+      const [dayB, monthB] = b.split(' ');
+  
+      const dateA = new Date(new Date().getFullYear(), monthMap[monthA], +dayA);
+      const dateB = new Date(new Date().getFullYear(), monthMap[monthB], +dayB);
+  
+      return dateA.getTime() - dateB.getTime();
+    });
   }
 }

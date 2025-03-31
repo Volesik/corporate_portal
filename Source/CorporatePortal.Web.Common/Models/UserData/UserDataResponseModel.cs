@@ -1,6 +1,6 @@
 namespace CorporatePortal.Web.Common.Models.UserData;
 
-public abstract class UserDataResponseModel
+public class UserDataResponseModel
 {
     
 }

@@ -41,7 +41,8 @@ public class UserInfoController(
     [HttpGet("getTodayBirthdayUsers")]
     public async Task<ActionResult<IEnumerable<UserInfo>>> GetTodayBirthdayUsersAsync()
     {
-        var users = await userInfoService.GetTodayBirthdayUsersAsync(CancellationToken.None);
+        var today = DateTime.Today;
+        var users = await userInfoService.GetUpcomingBirthdayUsersAsync(CancellationToken.None);
         return Ok(users);
     }
     
@@ -57,6 +58,20 @@ public class UserInfoController(
     {
         var result = await externalUserDataService.SendPhotoRequestAsync(guid);
         await externalUserDataService.SavePhotoAsync(result, guid);
+        return Ok();
+    }
+
+    [HttpGet("testDownloadUsers")]
+    public async Task<ActionResult> TestDownloadUsers()
+    {
+        await externalUserDataService.SendUserDataRequestAsync();
+        return Ok();
+    }
+
+    [HttpGet("testDownloadPhoto")]
+    public async Task<ActionResult> TestPhotoDownload()
+    {
+        var result = await  externalUserDataService.SendUserDataDismissAsync();
         return Ok();
     }
 }

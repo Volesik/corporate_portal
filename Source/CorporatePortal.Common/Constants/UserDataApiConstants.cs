@@ -15,6 +15,8 @@ public static class UserDataApiConstants
     public const string PhotoMethodName = "Dyctionary_UploadPhoto";
     public const string UserDataMethodName = "Dyctionary_UploadEmployee";
     public const string UserDataDismissMethodName = "Dyctionary_EmployeeOFF";
+    
+    public const string DataRootName = "data";
 
     private const string SectionName = "UserDataApiIntegrationSettings";
 }

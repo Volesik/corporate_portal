@@ -4,7 +4,9 @@ using Hangfire;
 
 namespace CorporatePortal.Workers.Workers;
 
-public abstract class UserInfoDownloadWorker(IBackgroundJobClient backgroundJobClient, IDownloader downloader) : IWorker
+public class UserInfoDownloadWorker(
+    IBackgroundJobClient backgroundJobClient,
+    IExternalUserDataService externalUserDataService) : IWorker
 {
     public Task ExecuteAsync(int bulkSize)
     {
@@ -20,8 +22,8 @@ public abstract class UserInfoDownloadWorker(IBackgroundJobClient backgroundJobC
         return Task.CompletedTask;
     }
 
-    private async Task ProcessAsync()
+    public async Task ProcessAsync()
     {
-        await downloader.DownloadUserInfoDataAsync();
+        await externalUserDataService.SendUserDataRequestAsync();
     }
 }
