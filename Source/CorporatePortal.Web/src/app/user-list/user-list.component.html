@@ -24,7 +24,7 @@
                 <h6 class="mb-2 employee-card__title"><a href="/user/{{ userInfo.id }}">{{ userInfo.fullName }}</a></h6>
                 <p *ngIf="userInfo.position" class="mb-1 text-muted employee-card__description">{{ userInfo.position }}</p>
                 <p *ngIf="userInfo.department" class="mb-1 text-muted employee-card__description">{{ userInfo.department }}</p>
-                <p *ngIf="userInfo?.mobilePhone" class="mb-1 employee-card__description"><a href="tel:{{ userInfo?.mobilePhone }}">{{ userInfo?.workPhone || userInfo?.mobilePhone }}</a></p>
+                <p *ngIf="userInfo?.mobilePhone" class="mb-1 employee-card__description"><a href="tel:{{ userInfo?.mobilePhone }}">{{ userInfo?.mobilePhone }}</a></p>
                 <p *ngIf="userInfo?.email && !userInfo?.email?.startsWith('no.email')" class="mb-1 employee-card__description"><a href="mailto:{{ userInfo?.email }}">{{ userInfo?.email }}</a></p>
               </div>
             </div>
