@@ -1,22 +1,19 @@
-﻿:host {
-    max-width: 1280px;
-    padding: 2rem;
-    text-align: center;
+﻿body {
+  font-family: "Bitter", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
 
-tr:nth-child(even) {
-    background: #F2F2F2;
+html, body {
+  height: 100%;
 }
 
-tr:nth-child(odd) {
-    background: #FFF;
+a {
+  text-decoration: none;
+  color: #1b1a1f;
 }
 
-th, td {
-    padding-left: 1rem;
-    padding-right: 1rem;
-}
-
-table {
-    margin: 0 auto;
+a:hover {
+  color: #d22747;
 }

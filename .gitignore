@@ -826,3 +826,6 @@ fabric.properties
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/angular,csharp,aspnetcore,rider,visualstudio,visualstudiocode
+
+.env
+UserInfoSeeding.sql

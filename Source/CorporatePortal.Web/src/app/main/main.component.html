@@ -1,0 +1,29 @@
+<div class="alert alert-info" role="alert">
+  Впроваджено розширений пошук співробітників із можливістю одночасного використання ПІБ, електронної пошти та мобільного номера.
+</div>
+<div class="d-flex flex-column align-items-center justify-content-center text-center" style="min-height: 50vh;">
+  <h1 class="mb-4 search-title">Пошук співробітника:</h1>
+  <div class="input-group mb-3 w-50">
+    <input
+      class="form-control py-3 search-input"
+      type="text"
+      placeholder="Пошук..."
+      (input)="onSearch($event)"
+      (focus)="showResults = true"
+      (blur)="hideResults()"
+      (keydown.enter)="goToUsers(searchText)"
+      (keydown)="onKeyDown($event)"
+    />
+  </div>
+
+  <div class="search-results" *ngIf="showResults">
+    <div *ngIf="filteredResults.length; else noResults">
+      <div *ngFor="let user of filteredResults; let i = index" class="result-item" [class.active]="i === selectedIndex" (mousedown)="goToUser(user.id)">
+        {{ user.fullName }}
+      </div>
+    </div>
+    <ng-template #noResults>
+      <div class="no-results">Нічого не знайдено</div>
+    </ng-template>
+  </div>
+</div>

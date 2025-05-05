@@ -1,0 +1,41 @@
+<div class="alert alert-black p-2" role="alert">
+  🎉 <span class="page-small-title">Дні народження:</span>
+</div>
+
+<div class="accordion accordion-flush" id="birthdayAccordion">
+  <div class="accordion-item" *ngFor="let dateLabel of sortedDateKeys; let i = index">
+    <h2 class="accordion-header" [id]="'heading' + i">
+      <button class="accordion-button p-1 birthday-date__title"
+              type="button"
+              data-bs-toggle="collapse"
+              [attr.data-bs-target]="'#collapse' + i"
+              [attr.aria-expanded]="i === 0 ? 'true' : 'false'"
+              [attr.aria-controls]="'collapse' + i"
+              [ngClass]="{ 'collapsed': i !== 0 }">
+        {{ dateLabel }}
+      </button>
+    </h2>
+    <div [id]="'collapse' + i"
+         class="accordion-collapse collapse"
+         [class.show]="i === 0"
+         [attr.aria-labelledby]="'heading' + i"
+         data-bs-parent="#birthdayAccordion">
+      <div class="accordion-body p-0">
+        <ul class="list-group list-group-flush">
+          <li *ngFor="let user of birthdaysByDate[dateLabel]" class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <h6 class="mb-0">
+                <a class="birthday-name__title" [href]="'/user/' + user.id">{{ user.fullName }}</a>
+              </h6>
+              <span class="text-muted birthday-position__title">{{ user.position }}</span>
+              <span class="text-muted birthday-position__title">{{ user.department }}</span>
+            </div>
+          </li>
+        </ul>
+        <div *ngIf="!birthdaysByDate[dateLabel]?.length" class="px-3 text-muted fst-italic">
+          Немає іменинників
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
