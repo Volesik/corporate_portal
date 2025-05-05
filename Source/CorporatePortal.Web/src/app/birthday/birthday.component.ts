@@ -21,10 +21,12 @@ export class BirthdayComponent implements OnInit {
   getUsersByBirthday() {
     this.http.get<UserInfo[]>('/userinfo/getTodayBirthdayUsers').subscribe(async users => {
       const today = new Date();
+      today.setHours(0, 0, 0, 0);
 
       for (const user of users) {
         const birthday = new Date(user.birthday);
         birthday.setFullYear(today.getFullYear());
+        birthday.setHours(0, 0, 0, 0);
 
         const diffDays = Math.floor((birthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
         if (diffDays < 0 || diffDays > 2) continue;
@@ -45,14 +47,14 @@ export class BirthdayComponent implements OnInit {
       'січня': 0, 'лютого': 1, 'березня': 2, 'квітня': 3, 'травня': 4, 'червня': 5,
       'липня': 6, 'серпня': 7, 'вересня': 8, 'жовтня': 9, 'листопада': 10, 'грудня': 11
     };
-  
+
     return Object.keys(this.birthdaysByDate).sort((a, b) => {
       const [dayA, monthA] = a.split(' ');
       const [dayB, monthB] = b.split(' ');
-  
+
       const dateA = new Date(new Date().getFullYear(), monthMap[monthA], +dayA);
       const dateB = new Date(new Date().getFullYear(), monthMap[monthB], +dayB);
-  
+
       return dateA.getTime() - dateB.getTime();
     });
   }
