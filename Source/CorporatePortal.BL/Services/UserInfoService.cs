@@ -30,7 +30,9 @@ public class UserInfoService(IDatabaseContextRepository<UserInfo> userInfoReposi
 
     public async Task<UserInfo[]> SearchAsync(string? searchTerm, CancellationToken token)
     {
-        var specification = new SearchUserInfoByFullName(searchTerm);
+        var specification = new SearchUserInfoByFullName(searchTerm)
+                            | new SearchUserInfoByEmail(searchTerm)
+                            | new SearchUserInfoByMobilePhone(searchTerm);
         var users = await userInfoRepository.GetArrayAsync(specification, token, skip: default, take: 5);
         return users;
     }
