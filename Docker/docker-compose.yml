@@ -7,12 +7,3 @@ services:
       POSTGRES_DATABASE: portal
     ports:
       - '2345:5432'
-
-  corporatePortal.Elsa:
-    image: postgres:16.4-alpine
-    environment:
-      POSTGRES_USER: elsa
-      POSTGRES_PASSWORD: elsa
-      POSTGRES_DATABASE: elsa
-    ports:
-      - '2346:5433'
