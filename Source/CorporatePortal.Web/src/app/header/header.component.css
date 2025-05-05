@@ -22,8 +22,8 @@ header, nav {
 }
 
 .nav-link {
-  border-bottom: 2px solid transparent; /* Always reserve space */
-  transition: border-color 0.2s, color 0.2s; /* Optional smooth effect */
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s, color 0.2s;
 }
 
 .nav-link:focus,
@@ -45,7 +45,7 @@ header, nav {
 
 .search-results {
   position: absolute;
-  top: calc(100% + 4px); /* just below the input */
+  top: calc(100% + 4px);
   left: 0;
   width: 100%;
   color: black;
@@ -54,7 +54,7 @@ header, nav {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   max-height: 300px;
   overflow-y: auto;
-  z-index: 1050; /* Make sure it's above header/nav */
+  z-index: 1050;
   padding: 10px 0;
 }
 

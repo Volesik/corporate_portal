@@ -17,7 +17,7 @@ export class HeaderComponent {
 
   constructor(private http: HttpClient) {
     this.searchSubject.pipe(
-      debounceTime(300), // Wait for 300ms pause in events
+      debounceTime(300),
       switchMap((searchTerm) => this.searchUsers(searchTerm))
     ).subscribe(results => {
       this.filteredResults = results;
@@ -27,26 +27,23 @@ export class HeaderComponent {
 
   onSearch(event: Event) {
     this.selectedIndex = -1;
-    const input = event.target as HTMLInputElement; // Cast the target to HTMLInputElement
-    this.searchText = input.value; // Get the value from the input
+    const input = event.target as HTMLInputElement;
+    this.searchText = input.value;
 
-    // Emit the new value to the subject, triggering the API call
     if (this.searchText) {
       this.searchSubject.next(this.searchText);
     } else {
-      this.filteredResults = []; // Clear results if the input is empty
+      this.filteredResults = [];
       this.showResults = false;
     }
   }
 
   searchUsers(searchTerm: string) {
-    // Only make the request if the search term is not empty
     return this.http.get<UserInfo[]>(`/userinfo/search/${searchTerm}`);
   }
 
   searchUser(searchTerm: string) {
     if (searchTerm) {
-      // Perform a search with the provided value
       this.http.get<UserInfo[]>(`/userinfo/search/${searchTerm}`)
         .subscribe(results => {
           this.filteredResults = results;
@@ -57,7 +54,7 @@ export class HeaderComponent {
 
   goToUser(userId: string) {
     console.log(userId);
-    window.location.href = `/user/${userId}`; // Adjust URL according to your routing
+    window.location.href = `/user/${userId}`;
   }
 
   goToUsers(search: string) {
@@ -73,19 +70,19 @@ export class HeaderComponent {
 
   onKeyDown(event: KeyboardEvent) {
     if (!this.filteredResults.length) return;
-  
+
     switch (event.key) {
       case 'ArrowDown':
         this.selectedIndex = (this.selectedIndex + 1) % this.filteredResults.length;
         event.preventDefault();
         break;
-  
+
       case 'ArrowUp':
         this.selectedIndex =
           (this.selectedIndex - 1 + this.filteredResults.length) % this.filteredResults.length;
         event.preventDefault();
         break;
-  
+
       case 'Enter':
         if (this.selectedIndex >= 0 && this.selectedIndex < this.filteredResults.length) {
           this.goToUser(this.filteredResults[this.selectedIndex].id);
@@ -94,7 +91,7 @@ export class HeaderComponent {
           this.goToUsers(this.searchText);
         }
         break;
-  
+
       case 'Escape':
         this.showResults = false;
         break;

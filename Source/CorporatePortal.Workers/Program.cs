@@ -20,7 +20,6 @@ builder.Configuration
     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
     .AddEnvironmentVariables();
 
-// Hangfire configuration
 var hangfireQueues = new List<string>();
 builder.Configuration.GetSection("Hangfire:Queues").Bind(hangfireQueues);
 
@@ -48,12 +47,10 @@ builder.Services.AddScoped(typeof(IDatabaseContextRepository<>), typeof(Database
 builder.Services.AddScoped<IDatabaseContextRepository, DatabaseContextRepository>();
 builder.Services.AddWebCommonServices(builder.Configuration);
 builder.Services.AddTransient<IUserInfoService, UserInfoService>();
-builder.Services.AddTransient<IDownloader, Downloader>();
 builder.Services.AddSingleton<IExternalUserDataService, ExternalUserDataService>();
 builder.Services.AddTransient<UserInfoMapper>();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -61,7 +58,6 @@ var app = builder.Build();
 
 app.UseHangfireDashboard();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

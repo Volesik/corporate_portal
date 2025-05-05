@@ -56,17 +56,15 @@ export class UserDetailComponent {
     const jpgPath = `${this.imageFolder}${uniqueId}.jpg`;
     const pngPath = `${this.imageFolder}${uniqueId}.png`;
 
-    // Use a temporary Image object to check for existence
     const img = new Image();
     img.src = jpgPath;
 
     return await new Promise<string>((resolve) => {
       img.onload = () => resolve(jpgPath);
       img.onerror = () => {
-        // Check for PNG
         img.src = pngPath;
         img.onload = () => resolve(pngPath);
-        img.onerror = () => resolve(this.noImagePlaceholder); // Fallback to placeholder
+        img.onerror = () => resolve(this.noImagePlaceholder);
       };
     });
   }

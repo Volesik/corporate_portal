@@ -7,7 +7,6 @@ namespace CorporatePortal.Api.Controllers;
 [ApiController]
 [Route("[controller]")]
 public class UserInfoController(
-    ILogger<UserInfoController> logger,
     IUserInfoService userInfoService,
     IExternalUserDataService externalUserDataService)
     : ControllerBase
@@ -58,20 +57,6 @@ public class UserInfoController(
     {
         var result = await externalUserDataService.SendPhotoRequestAsync(guid);
         await externalUserDataService.SavePhotoAsync(result, guid);
-        return Ok();
-    }
-
-    [HttpGet("testDownloadUsers")]
-    public async Task<ActionResult> TestDownloadUsers()
-    {
-        await externalUserDataService.SendUserDataRequestAsync();
-        return Ok();
-    }
-
-    [HttpGet("testDownloadPhoto")]
-    public async Task<ActionResult> TestPhotoDownload()
-    {
-        var result = await  externalUserDataService.SendUserDataDismissAsync();
         return Ok();
     }
 }

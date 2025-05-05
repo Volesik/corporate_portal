@@ -23,7 +23,7 @@ export class UserListComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       const searchTerm = params['search'];
-      this.getTotalUsers(searchTerm); // Get total users on init
+      this.getTotalUsers(searchTerm);
       this.getUserInfos(searchTerm, this.currentPage);
     });
   }
@@ -35,14 +35,13 @@ export class UserListComponent implements OnInit {
     this.http.get<UserInfo[]>(url).subscribe(
       async (result) => {
         const userPromises = result.map(async user => {
-          const imageUrl = await this.getImageUrl(user.uniqueId); // Wait for the promise to resolve
+          const imageUrl = await this.getImageUrl(user.uniqueId);
           return {
             ...user,
-            imageUrl // Now imageUrl is a string
+            imageUrl
           };
         });
 
-        // Wait for all promises to resolve
         this.userInfos = await Promise.all(userPromises);
         this.updatePagination();
       },
@@ -74,11 +73,10 @@ export class UserListComponent implements OnInit {
         this.pageNumbers.push(i);
       }
     } else {
-      // Always show first page
       this.pageNumbers.push(1);
 
       if (this.currentPage > 4) {
-        this.pageNumbers.push(-1); // Placeholder for "..."
+        this.pageNumbers.push(-1);
       }
 
       const startPage = Math.max(2, this.currentPage - 1);
@@ -89,10 +87,9 @@ export class UserListComponent implements OnInit {
       }
 
       if (this.currentPage < this.totalPages - 3) {
-        this.pageNumbers.push(-1); // Placeholder for "..."
+        this.pageNumbers.push(-1);
       }
 
-      // Always show last page
       if (this.currentPage !== this.totalPages) {
         this.pageNumbers.push(this.totalPages);
       }
@@ -107,7 +104,6 @@ export class UserListComponent implements OnInit {
   async getImageUrl(uniqueId: string): Promise<string> {
     const jpgPath = `${this.imageFolder}${uniqueId}.jpg`;
 
-    // Use a temporary Image object to check for existence
     const img = new Image();
     img.src = jpgPath;
 

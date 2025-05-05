@@ -14,7 +14,7 @@
         (blur)="hideResults()"
         (keydown)="onKeyDown($event)"
       />
-      <!-- DROPDOWN FLOATING BELOW INPUT -->
+
       <div class="search-results position-absolute" *ngIf="showResults">
         <div *ngIf="filteredResults.length; else noResults">
           <div *ngFor="let user of filteredResults; let i = index"
