@@ -12,9 +12,12 @@ public class UserInfoService(IDatabaseContextRepository<UserInfo> userInfoReposi
 {
     public async Task<UserInfo[]> GetAsync(string? searchTerm, CancellationToken token, int skip = 0, int take = 0)
     {
-        var specification = searchTerm == null
-            ? (Specification<UserInfo>)new FindUserInfoByActive(true)
-            : new SearchUserInfoByFullName(searchTerm);
+        Specification<UserInfo> specification = new FindUserInfoByActive(true);
+
+        if (searchTerm != null)
+        {
+            specification &= new SearchUserInfoByFullName(searchTerm);
+        }
         
         var users = await userInfoRepository.GetArrayAsync(specification, token, skip, take: take);
         
@@ -30,7 +33,9 @@ public class UserInfoService(IDatabaseContextRepository<UserInfo> userInfoReposi
 
     public async Task<UserInfo[]> SearchAsync(string? searchTerm, CancellationToken token)
     {
-        var specification = new SearchUserInfoByFullName(searchTerm)
+        Specification<UserInfo> specification = new FindUserInfoByActive(true);
+        
+        specification &= new SearchUserInfoByFullName(searchTerm)
                             | new SearchUserInfoByEmail(searchTerm)
                             | new SearchUserInfoByMobilePhone(searchTerm);
         var users = await userInfoRepository.GetArrayAsync(specification, token, skip: default, take: 5);
@@ -39,7 +44,7 @@ public class UserInfoService(IDatabaseContextRepository<UserInfo> userInfoReposi
 
     public Task<UserInfo[]> GetUpcomingBirthdayUsersAsync(CancellationToken token)
     {
-        var specification = new FindUpcomingBirthdayUsers();
+        var specification = new FindUserInfoByActive(true) & new FindUpcomingBirthdayUsers();
         var users = userInfoRepository.GetArrayAsync(specification, token);
         return users;
     }
@@ -81,9 +86,12 @@ public class UserInfoService(IDatabaseContextRepository<UserInfo> userInfoReposi
 
     public async Task<int> CountAsync(string? searchTerm, CancellationToken token)
     {
-        var specification = searchTerm == null
-            ? (Specification<UserInfo>)new TrueSpecification<UserInfo>()
-            : new SearchUserInfoByFullName(searchTerm);
+        Specification<UserInfo> specification = new FindUserInfoByActive(true);
+
+        if (searchTerm != null)
+        {
+            specification &= new SearchUserInfoByFullName(searchTerm);
+        }
         
         return await userInfoRepository.CountAsync(specification, token);
     }
