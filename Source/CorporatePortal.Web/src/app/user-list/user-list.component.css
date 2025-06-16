@@ -61,7 +61,7 @@
 }
 
 li.page-item .page-link:hover {
-  color: red;
+  color: #d22747;
 }
 
 li.page-item.active .page-link:hover {
@@ -84,4 +84,16 @@ a:hover {
 
 .page-item:hover {
   cursor: pointer;
+}
+
+.reset-filter {
+  border-color: #2d2b33;
+  color: #2d2b33;
+  font-size: 12px;
+}
+
+.reset-filter:hover {
+  border-color: #d22747;
+  background: #d22747;
+  color: #e6e7e8;
 }

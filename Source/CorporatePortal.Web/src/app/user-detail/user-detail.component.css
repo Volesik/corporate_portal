@@ -39,3 +39,12 @@ main {
 .detail-page__card p {
   margin: 0;
 }
+
+.room-link {
+  color: #fff;
+  text-decoration: none;
+}
+
+.room-link:hover {
+  color: #2d2b33;
+}

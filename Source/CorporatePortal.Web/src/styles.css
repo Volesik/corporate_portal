@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+ng-dropdown-panel .ng-option.ng-option-marked,
+ng-dropdown-panel .ng-option.ng-option-selected,
+ng-select .ng-value,
+ng-dropdown-panel .ng-option:hover {
+    background-color: #d22747 !important;
+    color: white!important;
+}
+
+ng-select .ng-value-icon:hover {
+    background-color: #2d2b33 !important;
+    color: white!important;
+}
+
+ng-select .ng-placeholder,
+ng-select .ng-value,
+ng-dropdown-panel .ng-option,
+ng-select .ng-input input {
+    font-size: 12px;
+}
+
+ng-select .ng-value-label {
+    font-size: 10px;
+}

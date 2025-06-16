@@ -32,6 +32,19 @@ public interface IRepositoryBase<out TDbContext>
         int take = default)
         where TEntity : BaseEntity;
     
+    Task<TProjection[]> GetDistinctItemsArrayAsync<TEntity, TProjection, TGroupKey>(
+        Specification<TEntity> specification,
+        Expression<Func<TEntity?, TGroupKey>> groupByExpression,
+        Expression<Func<TGroupKey, TProjection>> projectExpression,
+        Expression<Func<TEntity?, object>> sortingExpression,
+        CancellationToken token,
+        int skip = default,
+        int take = default,
+        IEnumerable<string>? includedProperties = null,
+        bool noTracking = true,
+        bool asSplitQuery = false)
+        where TEntity : BaseEntity;
+    
     Task UpdateAsync<TEntity>(
         Specification<TEntity> specification,
         Action<TEntity> updateAction,

@@ -31,6 +31,7 @@ builder.Services.AddScoped<IDatabaseContextRepository, DatabaseContextRepository
 builder.Services.AddTransient<IStartupFilter, MigrationStartupFilter<CorporatePortalContext>>();
 builder.Services.AddTransient<IUserInfoService, UserInfoService>();
 builder.Services.AddTransient<IExternalUserDataService, ExternalUserDataService>();
+builder.Services.AddTransient<IUserInfoListSearchService, UserInfoListSearchService>();
 
 var app = builder.Build();
 

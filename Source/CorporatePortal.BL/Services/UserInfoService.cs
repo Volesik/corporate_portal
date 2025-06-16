@@ -1,25 +1,23 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using CorporatePortal.BL.Interfaces;
+using CorporatePortal.Common.Models;
 using CorporatePortal.DL;
 using CorporatePortal.DL.Abstractions.Specifications;
-using CorporatePortal.DL.Abstractions.Specifications.Operators;
 using CorporatePortal.DL.EntityFramework.Models;
 using CorporatePortal.DL.Specifications;
 using CorporatePortal.DL.Specifications.User;
+using Refit;
 
 namespace CorporatePortal.BL.Services;
 
 public class UserInfoService(IDatabaseContextRepository<UserInfo> userInfoRepository) : IUserInfoService
 {
-    public async Task<UserInfo[]> GetAsync(string? searchTerm, CancellationToken token, int skip = 0, int take = 0)
+    public async Task<UserInfo[]> GetAsync(SearchParameter searchParameter, CancellationToken token)
     {
-        Specification<UserInfo> specification = new FindUserInfoByActive(true);
-
-        if (searchTerm != null)
-        {
-            specification &= new SearchUserInfoByFullName(searchTerm);
-        }
+        var specification = BuildFilteredUserInfoSpecification(searchParameter.SearchTerm, searchParameter.Filter);
         
-        var users = await userInfoRepository.GetArrayAsync(specification, token, skip, take: take);
+        var users = await userInfoRepository.GetArrayAsync(specification, token, searchParameter.Skip, searchParameter.Take);
         
         return users;
     }
@@ -33,7 +31,7 @@ public class UserInfoService(IDatabaseContextRepository<UserInfo> userInfoReposi
 
     public async Task<UserInfo[]> SearchAsync(string? searchTerm, CancellationToken token)
     {
-        Specification<UserInfo> specification = new FindUserInfoByActive(true);
+        Specification<UserInfo> specification = new FindActiveUserInfo();
         
         specification &= new SearchUserInfoByFullName(searchTerm)
                             | new SearchUserInfoByEmail(searchTerm)
@@ -44,7 +42,7 @@ public class UserInfoService(IDatabaseContextRepository<UserInfo> userInfoReposi
 
     public Task<UserInfo[]> GetUpcomingBirthdayUsersAsync(CancellationToken token)
     {
-        var specification = new FindUserInfoByActive(true) & new FindUpcomingBirthdayUsers();
+        var specification = new FindActiveUserInfo() & new FindUpcomingBirthdayUsers();
         var users = userInfoRepository.GetArrayAsync(specification, token);
         return users;
     }
@@ -84,14 +82,9 @@ public class UserInfoService(IDatabaseContextRepository<UserInfo> userInfoReposi
         await userInfoRepository.AddAsync(userInfo, token);
     }
 
-    public async Task<int> CountAsync(string? searchTerm, CancellationToken token)
+    public async Task<int> CountAsync(SearchParameter searchParameter, CancellationToken token)
     {
-        Specification<UserInfo> specification = new FindUserInfoByActive(true);
-
-        if (searchTerm != null)
-        {
-            specification &= new SearchUserInfoByFullName(searchTerm);
-        }
+            var specification = BuildFilteredUserInfoSpecification(searchParameter.SearchTerm, searchParameter.Filter);
         
         return await userInfoRepository.CountAsync(specification, token);
     }
@@ -114,5 +107,52 @@ public class UserInfoService(IDatabaseContextRepository<UserInfo> userInfoReposi
             }
         }
         
+    }
+
+    private Specification<UserInfo> BuildFilteredUserInfoSpecification(string? searchTerm, string? parameters)
+    {
+        Specification<UserInfo> specification = new FindActiveUserInfo();
+        
+        specification &= new SearchUserInfoByFullName(searchTerm)
+                         | new SearchUserInfoByEmail(searchTerm)
+                         | new SearchUserInfoByMobilePhone(searchTerm);
+
+        if (string.IsNullOrWhiteSpace(parameters))
+        {
+            return specification;
+        }
+        
+        var defaultSerizaliztionOptions = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            Converters =
+            {
+                new ObjectToInferredTypesConverter()
+            }
+        };
+        
+        var filter = JsonSerializer.Deserialize<UserInfoFilter>(parameters, defaultSerizaliztionOptions);
+        if (filter?.Rooms != null && filter!.Rooms!.Length > 0)
+        {
+            specification &= new FindUserInfoByRoom(filter.Rooms);
+        }
+    
+        if (filter?.Departments != null && filter!.Departments!.Length > 0)
+        {
+            specification &= new FindUserInfoByDepartment(filter.Departments);
+        }
+
+        if (filter?.Positions != null && filter!.Positions!.Length > 0)
+        {
+            specification &= new FindUserInfoByPosition(filter.Positions);
+        }
+
+        if (filter?.Cities != null && filter!.Cities!.Length > 0)
+        {
+            specification &= new FindUserInfoByCity(filter.Cities);
+        }
+
+        return specification;
     }
 }

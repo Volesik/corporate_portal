@@ -1,4 +1,6 @@
+using System.ComponentModel.DataAnnotations;
 using CorporatePortal.BL.Interfaces;
+using CorporatePortal.Common.Models;
 using CorporatePortal.DL.EntityFramework.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,21 +10,22 @@ namespace CorporatePortal.Api.Controllers;
 [Route("[controller]")]
 public class UserInfoController(
     IUserInfoService userInfoService,
-    IExternalUserDataService externalUserDataService)
+    IExternalUserDataService externalUserDataService,
+    IUserInfoListSearchService userInfoListSearchService)
     : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<UserInfo>>> GetUserInfosAsync(string? searchTerm, int skip)
+    public async Task<ActionResult<IEnumerable<UserInfo>>> GetUserInfosAsync([FromQuery, Required] SearchParameter searchParameter)
     {
-        var users = await userInfoService.GetAsync(searchTerm, CancellationToken.None, skip, 20);
-        return Ok(users);
+        var users = await userInfoService.GetAsync(searchParameter, CancellationToken.None);
+                                return Ok(users);
     }
-    
+        
     [HttpGet("count")]
-    public async Task<ActionResult<int>> GetUserInfosCountAsync(string? searchTerm)
-    {
-        var users = await userInfoService.CountAsync(searchTerm, CancellationToken.None);
-        return Ok(users);
+    public async Task<ActionResult<int>> GetUserInfosCountAsync([FromQuery, Required] SearchParameter searchParameter)
+    {   
+        var users = await userInfoService.CountAsync(searchParameter, CancellationToken.None);
+        return Ok(users);   
     }
 
     [HttpGet("{id:long}")]
@@ -58,5 +61,14 @@ public class UserInfoController(
         var result = await externalUserDataService.SendPhotoRequestAsync(guid);
         await externalUserDataService.SavePhotoAsync(result, guid);
         return Ok();
+    }
+
+    [HttpGet("user-dashboard-search")]
+    public async Task<ActionResult<IEnumerable<string>>> SearchForUsersFilterParametersAsync(
+        [FromQuery, Required] UserSearchParameters searchParameters)
+    {
+        var result = await userInfoListSearchService.SearchAsync(searchParameters, CancellationToken.None);
+        
+        return Ok(result);
     }
 }

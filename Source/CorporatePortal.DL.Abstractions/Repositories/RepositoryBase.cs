@@ -55,6 +55,25 @@ public abstract class RepositoryBase<TDbContext> : IRepositoryBase<TDbContext>
         var query = Set<TEntity>().GetFilteredQueryWithoutSorting(specification, skip, take);
         return query.ToArrayAsync(cancellationToken);
     }
+    
+    public Task<TProjection[]> GetDistinctItemsArrayAsync<TEntity, TProjection, TGroupKey>(
+        Specification<TEntity> specification,
+        Expression<Func<TEntity?, TGroupKey>> groupByExpression,
+        Expression<Func<TGroupKey, TProjection>> projectExpression,
+        Expression<Func<TEntity?, object>> sortingExpression,
+        CancellationToken token,
+        int skip = default,
+        int take = default,
+        IEnumerable<string>? includedProperties = null,
+        bool noTracking = true,
+        bool asSplitQuery = false)
+        where TEntity : BaseEntity
+    {
+        var query = (IQueryable<TProjection>)Set<TEntity>().GetDistinctFilteredQueryWithSorting(
+            specification, groupByExpression, projectExpression, sortingExpression, skip, take, includedProperties ?? Array.Empty<string>(), noTracking, asSplitQuery);
+
+        return query.ToArrayAsync(token);
+    }
 
     public async Task UpdateAsync<TEntity>(
         Specification<TEntity> specification,

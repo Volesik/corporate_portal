@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using CorporatePortal.BL.Interfaces;
 using CorporatePortal.Common.Constants;
+using CorporatePortal.Common.Models;
 using CorporatePortal.Workers.Interfaces;
 using Hangfire;
 using Hangfire.Tags.Attributes;
@@ -20,7 +21,11 @@ public class UserPhotoWorker(
     {
         try
         {
-            var users = await userInfoService.GetAsync(null, CancellationToken.None);
+            var searchParameter = new SearchParameter()
+            {
+                Take = default
+            };
+            var users = await userInfoService.GetAsync(searchParameter, CancellationToken.None);
             
             foreach (var user in users)
             {
