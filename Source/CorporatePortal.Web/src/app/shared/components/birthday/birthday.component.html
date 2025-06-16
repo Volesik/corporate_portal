@@ -1,5 +1,5 @@
 <div class="alert alert-black p-2" role="alert">
-  🎉 <span class="page-small-title">Дні народження:</span>
+  🎉 <span class="page-small-title">{{ 'birthday.title' | translate }}:</span>
 </div>
 
 <div class="accordion accordion-flush" id="birthdayAccordion">
@@ -33,7 +33,7 @@
           </li>
         </ul>
         <div *ngIf="!birthdaysByDate[dateLabel]?.length" class="px-3 text-muted fst-italic">
-          Немає іменинників
+          {{ 'birthday.noBirthday' | translate }}
         </div>
       </div>
     </div>

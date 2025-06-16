@@ -1,0 +1,42 @@
+{
+  "notifications": {
+    "mainPage": "Впроваджено розширений пошук співробітників із можливістю одночасного використання ПІБ, електронної пошти та мобільного номера."
+  },  
+  "general": {
+    
+    "footerHelpText": "По технічним питанням писати на пошту",
+    "returnMainPage": "Повернутися на головну"
+  },
+  "search": {
+    "title": "Результати пошуку",
+    "notFound": "Нічого не знайдено",
+    "pageNotFound": "Сторінку не знайдено",
+    "searchPlaceholder": "Пошук...",
+    "employeeSearchTitle": "Пошук співробітника"
+  },
+  "user": {
+    "department": "Департамент",
+    "subDepartment": "Відділ",
+    "position": "Посада",
+    "city": "Місто",
+    "room": "Кабінет",
+    "experience": "Років в Bayadera",
+    "mobilePhone": "Мобільний телефон",
+    "innerPhone": "Внутрішній телефон",
+    "birthday": "День народження",
+    "email": "Email"
+  },
+  "filter": {
+    "title": "Фільтр",
+    "quantity": "Кількість",
+    "resetFilter": "Скинути фільтр"
+  },
+  "menu": {
+    "main": "Головна",
+    "employees": "Працівники компанії"
+  },
+  "birthday": {
+    "title": "Дні народження",
+    "noBirthday": "Немає іменинників"
+  }
+}

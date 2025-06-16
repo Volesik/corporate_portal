@@ -1,8 +1,8 @@
 <div class="card shadow-sm border-0 mb-4">
   <div class="card-body">
     <div class="d-flex justify-content-between align-items-center mb-3">
-      <h5 class="title mb-0">Фільтр:</h5>
-      <button class="btn btn-outline-secondary btn-sm reset-filter" (click)="resetFilters()">Скинути фільтр</button>
+      <h5 class="title mb-0">{{ 'filter.title' | translate }}:</h5>
+      <button class="btn btn-outline-secondary btn-sm reset-filter" (click)="resetFilters()">{{ 'filter.resetFilter' | translate }}</button>
     </div>
     <div class="row g-3">
       <div class="col-12 col-md-6 col-xl-4">
@@ -14,9 +14,9 @@
           [(ngModel)]="filters.departments"
           (ngModelChange)="applyFilters()"
           name="department"
-          placeholder="Департамент"
+          [placeholder]="'user.department' | translate"
           class="form-control"
-          [notFoundText]="'Нічого не знайдено'">
+          [notFoundText]="'search.notFound' | translate">
         </ng-select>
       </div>
 
@@ -29,9 +29,9 @@
           [(ngModel)]="filters.positions"
           (ngModelChange)="applyFilters()"
           name="position"
-          placeholder="Посада"
+          [placeholder]="'user.position' | translate"
           class="form-control"
-          [notFoundText]="'Нічого не знайдено'">
+          [notFoundText]="'search.notFound' | translate">
         </ng-select>
       </div>
 
@@ -44,9 +44,9 @@
           [(ngModel)]="filters.cities"
           (ngModelChange)="applyFilters()"
           name="city"
-          placeholder="Місто"
+          [placeholder]="'user.city' | translate"
           class="form-control"
-          [notFoundText]="'Нічого не знайдено'">
+          [notFoundText]="'search.notFound' | translate">
         </ng-select>
       </div>
     </div>
@@ -54,11 +54,11 @@
 </div>
 
 <div class="row mt-5">
-  <div class="col">
-      <h1 class="title">Результати пошуку:</h1>
+  <div class="col"> 
+      <h1 class="title">{{ 'search.title' | translate }}:</h1>
   </div>
   <div class="col text-end title-count">
-      <button disabled  type="button" class="btn btn-primary position-relative title-count me-4">Кількість
+      <button disabled  type="button" class="btn btn-primary position-relative title-count me-4">{{ 'filter.quantity' | translate }}
           <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger title-count__quantity">
             {{ totalUsers }}
           </span>

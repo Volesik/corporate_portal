@@ -1,13 +1,13 @@
 <div class="alert alert-info" role="alert">
-  Впроваджено розширений пошук співробітників із можливістю одночасного використання ПІБ, електронної пошти та мобільного номера.
+  {{ 'notifications.mainPage' | translate }}
 </div>
 <div class="d-flex flex-column align-items-center justify-content-center text-center" style="min-height: 50vh;">
-  <h1 class="mb-4 search-title">Пошук співробітника:</h1>
+  <h1 class="mb-4 search-title">{{ 'search.title' | translate }}:</h1>
   <div class="input-group mb-3 w-50">
     <input
       class="form-control py-3 search-input"
       type="text"
-      placeholder="Пошук..."
+      [placeholder]="'search.searchPlaceholder' | translate"
       (input)="onSearch($event)"
       (focus)="showResults = true"
       (blur)="hideResults()"
@@ -23,7 +23,7 @@
       </div>
     </div>
     <ng-template #noResults>
-      <div class="no-results">Нічого не знайдено</div>
+      <div class="no-results">{{ 'search.notFound' | translate }}</div>
     </ng-template>
   </div>
 </div>

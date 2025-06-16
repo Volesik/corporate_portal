@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { UserInfo } from "../models/user-info.model";
+import { UserInfo } from '../../../models/user-info.model';
 import { Subject, debounceTime, switchMap } from 'rxjs';
 
 @Component({
