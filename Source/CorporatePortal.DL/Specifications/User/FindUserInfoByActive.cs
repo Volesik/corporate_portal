@@ -4,11 +4,11 @@ using CorporatePortal.DL.EntityFramework.Models;
 
 namespace CorporatePortal.DL.Specifications.User;
 
-public class FindUserInfoByActive : Specification<UserInfo>
+public class FindActiveUserInfo : Specification<UserInfo>
 {
     private readonly bool _isActive;
     
-    public FindUserInfoByActive(bool isActive)
+    public FindActiveUserInfo(bool isActive = true)
     {
         _isActive = isActive;
     }

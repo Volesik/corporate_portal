@@ -33,11 +33,12 @@
               "src/assets/css/reset.css",
               "src/assets/css/fonts.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/@ng-select/ng-select/themes/default.theme.css",
               "src/assets/css/main.css",
               "src/styles.css"
             ],
             "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+              "src/assets/js/bootstrap-wrapper.js"
             ]
           },
           "configurations": {

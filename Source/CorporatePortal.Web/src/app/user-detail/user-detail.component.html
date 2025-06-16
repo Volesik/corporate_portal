@@ -8,7 +8,12 @@
         />
       </div>
       <div class="detail-page__card" *ngIf="userInfo?.room">
-        <p>Кабінет: <br> {{ userInfo?.room }}</p>
+        <p>
+          Кабінет: <br>
+          <a class="room-link" [routerLink]="['/users']" [queryParams]="{ room: userInfo?.room }">
+            {{ userInfo?.room }}
+          </a>
+        </p>
       </div>
       <div class="detail-page__card" *ngIf="userInfo?.employmentDate">
         <p>Років в Bayadera: <br> {{ getYearsInCompany(userInfo?.employmentDate) }}</p>

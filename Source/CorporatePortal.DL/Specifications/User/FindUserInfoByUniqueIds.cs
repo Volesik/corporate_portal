@@ -11,7 +11,7 @@ public class FindUserInfoByUniqueIds : Specification<UserInfo>
     
     public FindUserInfoByUniqueIds(Guid? uniqueIds)
     {
-        _uniqueIds = new[] { uniqueIds };
+        _uniqueIds = [uniqueIds];
     }
 
     public FindUserInfoByUniqueIds(IEnumerable<Guid?> uniqueIds)
